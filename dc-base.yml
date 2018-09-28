@@ -5,8 +5,6 @@ services:
 
   nginx:
     image: dreg.firecow.dk/nginx:${NGINX_TAG}
-    ports:
-    - 80:80
 
   php:
     image: dreg.firecow.dk/php:${PHP_TAG}
