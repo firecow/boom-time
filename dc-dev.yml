@@ -13,7 +13,7 @@ services:
   nginx:
     build:
       context: ./
-      dockerfile: ./nginx/Dockerfile
+      dockerfile: nginx/Dockerfile
     ports:
     - 3333:80
     volumes:
@@ -24,15 +24,16 @@ services:
     ports:
     - 3316:3306
 
-  mongo:
-    ports:
-    - 27018:27017
+  npm-install:
+    build:
+      context: ./
+      dockerfile: npm-install/Dockerfile
+    container_name: npm-install
 
   php-dev-cli:
     container_name: php-dev-cli
     build: php-dev-cli
     working_dir: /php
-    command: tail -f /dev/null
     volumes:
     - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
     - ./php:/php
@@ -43,6 +44,5 @@ services:
     container_name: npm-dev-cli
     image: node:8-alpine
     working_dir: /app/typescript
-    command: tail -f /dev/null
     volumes:
     - ./:/app

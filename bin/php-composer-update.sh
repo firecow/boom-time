@@ -1,2 +1,2 @@
 #!/bin/bash
-docker exec php-dev-cli composer update --ignore-platform-reqs
+docker-compose run php-dev-cli composer update --ignore-platform-reqs

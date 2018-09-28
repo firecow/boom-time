@@ -1,5 +1,0 @@
-HTTP/1.1 200 Ok
-Content-Length: 42
-Content-Type: text/html
-
-<div>This is Mogberg's profile page.</div>

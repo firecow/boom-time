@@ -18,7 +18,7 @@ class Config
                 "secret" => "megasecret",
             ],
             "pdo" => [
-                "dataSourceName" => "mysql:host=sql;dbname=simple-php",
+                "dataSourceName" => "mysql:host=sql;dbname=boom-time",
                 "username" => "root",
                 "password" => "root"
             ],

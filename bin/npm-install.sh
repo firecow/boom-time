@@ -1,2 +1,2 @@
 #!/bin/bash
-docker exec npm-dev-cli npm install
+docker-compose run npm-dev-cli npm install
