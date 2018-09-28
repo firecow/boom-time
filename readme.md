@@ -24,20 +24,6 @@
 ##### Run typescript watch is you are manipulating .ts files
 - `sh bin/typescript-watch.sh`
 
-### TODO
-- Rename header to menu
-- Rename subPage to Page.
-- PHP Codesniffer (Lint)
-- Use Monolog for error/exception/fatal handling and logging
-- Write tests for Javascript using Puppeteer
-- Simple messaging implementation (XMPP, Nodejs SocketCluster) (Mock it aswell)
-- Redis implementation (locking, caching) (Mock it)
-
-### Style
-- Use PSR1 / PSR2 for PHP
-- Use Google Javascript Style Guide for Javascript
-  - Use 4 space indentation instead of the default 2
-
 ### Code collaboration rules.
 - Never call namespaced classes directly, use import statement "use"
 - Never put @ infront of function call
@@ -91,3 +77,12 @@
   - Never use class name reflection
   - Never use method/function name reflection
   - Never use property reflection
+  
+### TODO
+- Rename header to menu
+- Rename subPage to Page.
+- PHP Codesniffer (Lint)
+- Use Monolog for error/exception/fatal handling and logging
+- Write tests for Javascript using Puppeteer
+- Simple messaging implementation (XMPP, Nodejs SocketCluster) (Mock it aswell)
+- Redis implementation (locking, caching) (Mock it)
