@@ -5,10 +5,10 @@ namespace App\DAL;
 
 use App\Encoding\JSON;
 use App\Exceptions\DAOException;
+use Exception;
 use PDO;
 use PDOStatement;
 use Traversable;
-use function is_int;
 
 class SQL
 {
@@ -31,7 +31,7 @@ class SQL
      * @param string $statement
      * @param array $inputParams
      * @return PDOStatement
-     * @throws DAOException
+     * @throws Exception
      */
     private function prepare(string $statement, array $inputParams): PDOStatement
     {
@@ -49,7 +49,7 @@ class SQL
      * @param string $statement
      * @param array $inputParams
      * @return Traversable
-     * @throws DAOException
+     * @throws Exception
      */
     public function execute(string $statement, array $inputParams): Traversable
     {
@@ -60,7 +60,7 @@ class SQL
      * @param string $statement
      * @param array $inputParams
      * @return array
-     * @throws DAOException
+     * @throws Exception
      */
     public function fetchAssoc(string $statement, array $inputParams): array
     {
@@ -77,7 +77,7 @@ class SQL
      * @param string $statement
      * @param array $inputParams
      * @return array
-     * @throws DAOException
+     * @throws Exception
      */
     public function fetchAll(string $statement, array $inputParams): array
     {

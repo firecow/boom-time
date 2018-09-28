@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Responses;
 
 use App\Encoding\JSON;
-use function md5;
-use const DATE_COOKIE;
 
 class RouteResponse
 {

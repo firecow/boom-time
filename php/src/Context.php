@@ -3,44 +3,30 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\DAL\NoSQL;
 use App\DAL\SQL;
-use App\Exceptions\FileErrorException;
-use App\Exceptions\FileNotFoundException;
 use App\Exceptions\JWTException;
 use App\Exceptions\UnauthorizedRouteException;
-use App\Header\HeaderContext;
 use App\JWT\JWTHandler;
 use Exception;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-class Context implements AuthenticatedUser, HeaderContext
+class Context
 {
 
     private $config;
     private $time;
-    private $random;
-    private $localizedTexts;
     private $superGlobals;
-    private $passwordHasher;
 
     /**
      * Context constructor.
      * @param SuperGlobals $superGlobals
-     * @throws FileErrorException
-     * @throws FileNotFoundException
-     * @throws Exception
      */
     public function __construct(SuperGlobals $superGlobals)
     {
         $this->superGlobals = $superGlobals;
-
-        $this->random = new Random();
-        $this->config = new Config();
-        $this->passwordHasher = new PasswordHasher();
         $this->time = new Time();
-        $this->localizedTexts = new LocalizedTexts();
+        $this->config = new Config();
     }
 
     protected function getConfig(): Config
@@ -100,12 +86,11 @@ class Context implements AuthenticatedUser, HeaderContext
         return $this->getUserIdFromAccessToken() !== null;
     }
 
-
-    public function getPasswordHasher(): PasswordHasher
-    {
-        return $this->passwordHasher;
-    }
-
+    /**
+     * @param string $facility
+     * @return Logger
+     * @throws Exception
+     */
     public function createLogger(string $facility): Logger
     {
         $handler = new StreamHandler('php://stdout');
@@ -120,21 +105,10 @@ class Context implements AuthenticatedUser, HeaderContext
         return new SQL($dataSourceName, $username, $password);
     }
 
-    public function createNoSQL(): NoSQL
-    {
-        $mongoUri = $this->getConfig()->getMongoURI();
-        return new NoSQL($mongoUri, $this->getTime());
-    }
-
     public function createJWTHandler(): JWTHandler
     {
         $secret = $this->getConfig()->getJWTSecret();
         return new JWTHandler($secret, $this->getTime());
-    }
-
-    public function getSuperGlobals(): SuperGlobals
-    {
-        return $this->superGlobals;
     }
 
     public function getTime(): Time
@@ -142,19 +116,9 @@ class Context implements AuthenticatedUser, HeaderContext
         return $this->time;
     }
 
-    public function getLocalizedTexts(): LocalizedTexts
+    public function getSuperGlobals(): SuperGlobals
     {
-        return $this->localizedTexts;
-    }
-
-    public function getLanguageCode(): string
-    {
-        return "eng";
-    }
-
-    public function getRandom(): Random
-    {
-        return $this->random;
+        return $this->superGlobals;
     }
 
 }

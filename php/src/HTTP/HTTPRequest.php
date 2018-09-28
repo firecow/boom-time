@@ -6,7 +6,6 @@ namespace App\HTTP;
 use App\Encoding\JSON;
 use App\File;
 use Exception;
-use function is_bool;
 
 class HTTPRequest
 {
@@ -23,6 +22,11 @@ class HTTPRequest
         $this->headers[$key] = $value;
     }
 
+    /**
+     * @param array $keyValues
+     * @return HTTPResponse
+     * @throws Exception
+     */
     public function sendFormPostData(array $keyValues): HTTPResponse
     {
         $now = time();
@@ -43,6 +47,11 @@ class HTTPRequest
         return $this->execute($content, "POST");
     }
 
+    /**
+     * @param array $data
+     * @return HTTPResponse
+     * @throws Exception
+     */
     public function sendJsonPostData(array $data): HTTPResponse
     {
         $this->headers["Content-type"] = "application/javascript";

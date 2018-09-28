@@ -13,6 +13,11 @@ class Base64
         return base64_encode($str);
     }
 
+    /**
+     * @param string $str
+     * @return string
+     * @throws Exception
+     */
     public static function decode(string $str): string
     {
         $result = base64_decode($str);
@@ -28,6 +33,11 @@ class Base64
         return str_replace("=", "", strtr($encoded, "+/", "-_"));
     }
 
+    /**
+     * @param string $str
+     * @return string
+     * @throws Exception
+     */
     public static function urlDecode(string $str): string
     {
         $remainder = strlen($str) % 4;

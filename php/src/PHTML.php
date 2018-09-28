@@ -11,19 +11,12 @@ class PHTML
     /**
      * @param string $phtmlPath
      * @param array $data
-     * @param PHTMLContext $ctx
+     * @param Context $ctx
      * @return string
      * @throws Exception
      */
-    public static function create(string $phtmlPath, array $data, PHTMLContext $ctx): string
+    public static function create(string $phtmlPath, array $data, Context $ctx): string
     {
-        $localizedText = $ctx->getLocalizedTexts();
-        $languageCode = $ctx->getLanguageCode();
-
-        /** @noinspection PhpUnusedLocalVariableInspection */
-        $t = function (string $key, ...$args) use ($languageCode, $localizedText): string {
-            return sprintf($localizedText->getText($languageCode, $key), ...$args);
-        };
 
         /** @noinspection PhpUnusedLocalVariableInspection */
         $phtml = function (string $path, array $data) use ($ctx) {

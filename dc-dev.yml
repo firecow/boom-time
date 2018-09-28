@@ -21,28 +21,21 @@ services:
     - ./nginx/public:/var/www/html/public
 
   sql:
+    image: mariadb:10.3.8
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: boom-time
     ports:
     - 3316:3306
-
-  npm-install:
-    build:
-      context: ./
-      dockerfile: npm-install/Dockerfile
-    container_name: npm-install
 
   php-dev-cli:
     container_name: php-dev-cli
     build: php-dev-cli
     working_dir: /php
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
     - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
     - ./php:/php
     - ./php-dev-cli:/shell
     - ./dumps:/dumps
-
-  npm-dev-cli:
-    container_name: npm-dev-cli
-    image: node:8-alpine
-    working_dir: /app/typescript
-    volumes:
-    - ./:/app
