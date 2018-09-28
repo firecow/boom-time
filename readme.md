@@ -9,12 +9,20 @@
 - Install PHPStorm. Excellent tool for SQL, Mongo, HTML, PHP and Javascript.
 
 
-### Running tests
-- `sh shell/webservermock.sh`
-- `sh shell/runtests.sh`
+### Start up in dev mode
+- `docker-compose up`
 
-### Running the site
-- `sh shell/webserver.sh`
+### Bring down in dev mode
+- `docker-compose down`
+
+### Utility scripts can be found in
+- `cd bin/`
+
+### Test data can be found in
+- `cd dumps/`
+
+### Run typescript watch is you are manipulating .ts files
+- `sh bin/typescript-watch.sh`
 
 ### TODO
 - Rename header to menu
