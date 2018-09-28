@@ -5,23 +5,23 @@
 - Install Docker
   - On windows https://www.docker.com/docker-windows
 
-#### Optional
+##### Optional
 - Install PHPStorm. Excellent tool for SQL, Mongo, HTML, PHP and Javascript.
 
 
-### Start up in dev mode
+##### Start up in dev mode
 - `docker-compose up`
 
-### Bring down in dev mode
+##### Bring down in dev mode
 - `docker-compose down`
 
-### Utility scripts can be found in
+##### Utility scripts can be found in
 - `cd bin/`
 
-### Test data can be found in
+##### Test data can be found in
 - `cd dumps/`
 
-### Run typescript watch is you are manipulating .ts files
+##### Run typescript watch is you are manipulating .ts files
 - `sh bin/typescript-watch.sh`
 
 ### TODO
