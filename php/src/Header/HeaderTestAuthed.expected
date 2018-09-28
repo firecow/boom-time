@@ -1,0 +1,18 @@
+<img src="/photo/5b3e0bc586463d34800048a3">
+
+<button onclick="return simplePHP.pushPageToHistory('/games/')">
+    <i class="fas fa-gamepad"></i>
+    <c>Games</c>
+</button>
+<button onclick="return simplePHP.pushPageToHistory('/myprofile/')">
+    <i class="fas fa-user"></i>
+    <c>Profile</c>
+</button>
+<button onclick="return simplePHP.pushPageToHistory('/error/')">
+    <i class="fas fa-exclamation-circle"></i>
+    <c>Error</c>
+</button>
+<button onclick="return simplePHP.clickLogout.run(event);">
+    <i class="fas fa-sign-out-alt"></i>
+    <c>Logout</c>
+</button>

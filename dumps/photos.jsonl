@@ -1,0 +1,19 @@
+{
+	"_id": {
+		"$oid": "5b3e0bc586463d34800048a3"
+	},
+	"mime": "image/png",
+	"width": 16,
+	"height": 16,
+	"uploaded": {
+		"$date": "2018-08-08T11:50:13.472Z"
+	},
+	"lastSeen": {
+		"$date": "2018-02-16T13:02:02.000Z"
+	},
+	"seenCount": 5,
+	"blob": {
+		"$binary": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gcFDA4rKYMRoQAAAvBJREFUKM8FwU1oHGUYAOD3fb9vZnYnu3H/kk12G9J0Q42hSJtCpZWkWF21RT1oewjSYlBQKHpREMEi2ktrzKGHgj8gKD3oQcS0hyYG+xMWWhNCYtq0tLZJbLNkdxqym8nuZHZmvtfnwY73fwAAZoUkWAUkpFe16g+mtGQ20r0PkVS9ApslI9MjIilgRawCkhIREZGEYERhW7Gbv8UfTG2xll4f+/HVwsn+MjXWGAgASBqm8n2hh4EkSYMDP+RuvtYcGaiuWuPD8cpYKnZH+eUADEQERMkqELrhVUvuwjUzvaOR6jRLS67Z0AfcM7siotzOyzO+TwASiUCRRCGBlfK2QsW7Z++Oj/o4gb44Qvm8U9mYLG3JlSdoGK4QwABIgoCZNF2Ltav4thubbhtvnT6RPfXFvtXS+p5e0HSwbJlUS3L6Qm1uQrl1kewfVF5DDyqe/d+zr5tf/v7JzOLf2+LzLUnZ1oJLj/h6QcgCJR4+mf9nonj7umQA9Xjm0qm2dSu8/O8j697ne5/REjEzbLiOg909am7W2PXm/ukbiG5/d+9z0ro4MthzP5cIuaFiZ0KMXoKfvve+/RlTzbhY5Kt/YldXvb1jUiufjKrnhWGI1kPvvHvwWqbF/vQsvvESRQ18OE3NIahpfOE8Zi4396xFbl4Uhclbm5mcHm8X6SMf0vLE0RednTuo7sAvY+qbESzW+Y/T8uA9c0V6l6tuoeIs1mxrdrwptxd3fjbq1+z9t46PfI12FT/+KOjtIFNR7IrQQvSdp+Y7+1K5vnDmaS2aFE0xAlbOwl/2FZU/JmWYhs+TvYZdV2XWAFMFTdFk+sCx9AtDkVyf0bpdNsUlAnquMzd0TkZTg7/e/6Dzq65DamiK9kj9LeXEq+UFa5k5ACBgAARJeqg1/x77HhBtbGjDZ7INfKz3HljZnT93Z7I+OyYqqxwEQAgAwCwBgH0PAACQBZZQVGqJ7MuHY7tf4b7DzsDbXrUcuDURfgo4QBT/A52aUUHfbC0ZAAAAAElFTkSuQmCC",
+		"$type": "00"
+	}
+}

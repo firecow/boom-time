@@ -1,0 +1,13 @@
+HTTP/1.1 200 Ok
+Content-Length: 258
+Content-Type: application/json
+
+bearerToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaW1wbGVwaHAuY29tIiwiaWF0IjoxNTE5MzA0NTEyLCJleHAiOjE1MTkzOTA5MjIsInN1YiI6IjZjOGUxNDVmYzdiNDBiNzZmYTc4MzIyMGE0OGZlZDlhIiwiaW1nIjpudWxsLCJ1bmEiOiJpbW1hYmFkIn0.3uucgfBLx9h9CT0gS5xuM8OqKzZGanFgZnCp2ib5tEQ
+expires=Friday, 23-Feb-2018 13:02:02 UTC
+
+{
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaW1wbGVwaHAuY29tIiwiaWF0IjoxNTE5MzA0NTEyLCJleHAiOjE1MTkzOTA5MjIsInN1YiI6IjZjOGUxNDVmYzdiNDBiNzZmYTc4MzIyMGE0OGZlZDlhIiwiaW1nIjpudWxsLCJ1bmEiOiJpbW1hYmFkIn0.3uucgfBLx9h9CT0gS5xuM8OqKzZGanFgZnCp2ib5tEQ"
+}
+
++ INSERT INTO `user_passwords` VALUES ('6c8e145fc7b40b76fa783220a48fed9a','8b40a04dabd100b04b26290940cb2782');
++ INSERT INTO `users` VALUES ('6c8e145fc7b40b76fa783220a48fed9a','immabad',NULL);

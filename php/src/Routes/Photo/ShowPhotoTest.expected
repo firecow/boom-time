@@ -1,0 +1,11 @@
+HTTP/1.1 200 Ok
+Content-Length: 849
+Content-Type: image/png
+Expires: Thu, 22 Feb 2018 13:17:02 GMT
+
+Image MD5: 5ac2405d8d360e8345ef0f9ea14e49c8
+
+- 		"$date": "2018-02-16T13:02:02.000Z"
++ 		"$date": "2018-02-22T13:02:02.000Z"
+- 	"seenCount": 5,
++ 	"seenCount": 6,

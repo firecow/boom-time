@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta name="viewport" content="initial-scale=1">
+    <title>SimplePHP</title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon"/>
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+    <script type="text/javascript" src="/build/build.js"></script>
+</head>
+<body>
+
+<div id="header" class="padding">
+    <button onclick="return simplePHP.pushPageToHistory('/games/')">
+        <i class="fas fa-gamepad"></i>
+        <c>Games</c>
+    </button>
+    <button onclick="return simplePHP.pushPageToHistory('/error/')">
+        <i class="fas fa-exclamation-circle"></i>
+        <c>Error</c>
+    </button>
+    <button onclick="return simplePHP.openModal('login')">
+        <i class="fas fa-sign-in-alt"></i>
+        <c>Login</c>
+    </button>
+    <button onclick="return simplePHP.openModal('signup')">
+        <i class="fas fa-user-plus"></i>
+        <c>Signup</c>
+    </button>
+</div>

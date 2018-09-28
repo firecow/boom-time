@@ -1,0 +1,25 @@
+HTTP/1.1 200 Ok
+Content-Length: 38
+Content-Type: application/json
+
+{
+    "photoId": "000000063064390006000006"
+}
+
++ {
++ 	"_id": {
++ 		"$oid": "000000063064390006000006"
++ 	},
++ 	"mime": "image/png",
++ 	"width": 16,
++ 	"height": 16,
++ 	"uploaded": {
++ 		"$date": "2018-02-22T13:02:02.000Z"
++ 	},
++ 	"lastSeen": null,
++ 	"seenCount": 0,
++ 	"blob": {
++ 		"$binary": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gcGBgkM3OoYNQAAAtZJREFUOMtFk8trnGUUh5/zfu83l28ukSaToQihKF2ouLbWRSgIBQtFUDcKoiJ4W0iXStGFm7rxL9CVKxeCIJGKeFvYhReIYhUbSZqMlplMM5lkvrm93/ue18VoPXDg+cFZHX6PnDuDXL784tm1tbUn0pIpgUBkMQIiEP/LEZBI4dTt7e1+/NbbH1yzZx4+tXZiafBFeylUtcgRI8QYSa3Q7Ue6B4a72xWWl8ZEERCgWmfUPHppff3Ufba3P13R+V61GANRiRpRqfHhBpy/8CQHow6txk/cco4w9awue8Aggazbm64Y71WIASIEJ4AhS2fc2I6cfuA2RQFJEth4z9IAghckAQ2BwquxIGgwaGGIouwPUsxICFoFfmE6y/n8Dc9TlcBxVqGdTqCAqIIg2KjHaLFH1CYaauSTKtvvw13DnMGwhpsELo48g7khvVLwTVKi9VxGw94EZtgYZ4Rihhv1QeBkrcwPhzXkOmzemCDO0escUnaea92U1Tcdp7MBuwNQD1YEJELwlp+vG7Y2SuTfDbnHK59+NCf+NefBrucQaK6UWXaemUswNiAJmBhZgIn83Wvy52ZBGiIC3P6k4MKzT/N1xeAAc2DZ+ixj5MuogxjAEsFPwVcDj507oEKF7pUEr57GM5Y/8qvcO1e+ffwEL7w6JDjFALkuimUBxIIYyIfw65cJoVXQW82QdyZ0mbMKZL8d4bHE4DAJqC6aatVDMQGtA0mZ9kPC2dcM43Gdr16ecfJSmWFumG0J3a6nlYFa0AKiglVdQJFDksy5uD5HYqRipvx4f8rzjzgiAf8omAjYxb2GxdrhqOQ7+9BIHKIRky6eE3XG669kOD3CjSHNoHBQBPAKnX6JwyO83dlLd7//PXl351Y4byQk6sGUgFgg4YjNbVD3v51JAmqS0B9Uru50wk0BaLfqzXpt1lb1yR117+i7EDD+y0RIrA35uNLr9fPjfwAcTICPfAiVbgAAAABJRU5ErkJggg==",
++ 		"$type": "00"
++ 	}
++ }

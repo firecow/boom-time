@@ -1,0 +1,6 @@
+.idea/
+*.output*
+*.failed*
+nginx/public/build/build.js
+typescript/build/build.js
+typescript/node_modules/

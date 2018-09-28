@@ -1,0 +1,14 @@
+<div class="modal-content centerMid padding">
+    <h3><?= $t("loginModalHeader") ?></h3>
+
+    <form method="post" onsubmit="return simplePHP.submitLogin.run(event);" class="inlineForm">
+        <label><?= $t("username") ?></label>
+        <input name="username" autocomplete="username" placeholder="<?= $t("username") ?>" type="text">
+        <label><?= $t("password") ?></label>
+        <input name="password" autocomplete="current-password" placeholder="<?= $t("password") ?>" type="password">
+        <button>
+            <i class="fas fa-sign-in-alt"></i>
+            <c><?= $t("login") ?></c>
+        </button>
+    </form>
+</div>

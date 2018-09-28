@@ -1,0 +1,8 @@
+HTTP/1.1 200 Ok
+Content-Length: 23
+Content-Type: text/plain
+
+bearerToken=
+expires=Wednesday, 31-Dec-1969 23:59:59 UTC
+
+Logged out successfully

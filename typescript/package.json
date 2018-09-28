@@ -1,0 +1,13 @@
+{
+  "name": "simple-php",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "tsc",
+    "watch": "tsc -w"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "typescript": "2.9.2"
+  }
+}

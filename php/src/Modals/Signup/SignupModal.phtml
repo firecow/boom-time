@@ -1,0 +1,16 @@
+<div class="modal-content centerMid padding">
+    <h3><?= $t("signupModalHeader") ?></h3>
+
+    <form method="post" onsubmit="return simplePHP.submitSignup.run(event);" class="inlineForm">
+        <label><?= $t("username") ?></label>
+        <input name="username" autocomplete="username" placeholder="<?= $t("username") ?>" type="text" required>
+        <label><?= $t("password") ?></label>
+        <input id="password" name="password" autocomplete="new-password" placeholder="<?= $t("password") ?>" type="password" required>
+        <label><?= $t("repeatPassword") ?></label>
+        <input id="password-repeat" name="password" autocomplete="new-password" placeholder="<?= $t("repeatPassword") ?>" type="password" required>
+        <button>
+            <i class="fas fa-user-plus"></i>
+            <c><?= $t("signup") ?></c>
+        </button>
+    </form>
+</div>
