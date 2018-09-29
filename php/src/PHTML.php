@@ -14,7 +14,7 @@ class PHTML
      * @param array $data
      * @param Context $ctx
      * @return string
-     * @throws Exception
+     * @throws Throwable
      */
     public static function create(string $phtmlPath, array $data, Context $ctx): string
     {

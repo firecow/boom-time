@@ -7,14 +7,14 @@ use App\Context;
 use App\PHTML;
 use App\Responses\RouteResponse;
 use App\Responses\StatusCode;
-use Exception;
+use Throwable;
 
 class FourOhFour
 {
     /**
      * @param Context $ctx
      * @return RouteResponse
-     * @throws Exception
+     * @throws Throwable
      */
     public static function generateFourOhFourResponse(Context $ctx): RouteResponse
     {

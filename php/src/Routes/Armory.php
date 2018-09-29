@@ -8,7 +8,7 @@ use App\PHTML;
 use App\Responses\HtmlTextRouteResponse;
 use App\Responses\RouteResponse;
 use App\Router\Route;
-use Exception;
+use Throwable;
 
 class Armory extends Route
 {
@@ -17,7 +17,7 @@ class Armory extends Route
      * @param Context $ctx
      * @param array $routeArguments
      * @return RouteResponse
-     * @throws Exception
+     * @throws Throwable
      */
     public function executeRoute(Context $ctx, array $routeArguments): RouteResponse
     {

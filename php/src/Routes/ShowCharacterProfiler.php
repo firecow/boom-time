@@ -4,16 +4,14 @@ declare(strict_types=1);
 namespace App\Routes;
 
 use App\Context;
-use App\Exceptions\UnprocessableRouteException;
 use App\IconHandler;
 use App\LUAParser;
 use App\ObjectPath\ObjectPath;
 use App\PHTML;
 use App\Responses\HtmlTextRouteResponse;
-use App\Responses\JsonRouteResponse;
 use App\Responses\RouteResponse;
 use App\Router\Route;
-use Exception;
+use Throwable;
 
 class ShowCharacterProfiler extends Route
 {
@@ -22,7 +20,7 @@ class ShowCharacterProfiler extends Route
      * @param Context $ctx
      * @param array $routeArguments
      * @return RouteResponse
-     * @throws Exception
+     * @throws Throwable
      */
     public function executeRoute(Context $ctx, array $routeArguments): RouteResponse
     {
