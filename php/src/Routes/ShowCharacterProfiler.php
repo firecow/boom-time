@@ -91,7 +91,7 @@ class ShowCharacterProfiler extends Route
 
                 $imagePath = IconHandler::initIcon($iconName);
                 $imageData = base64_encode(file_get_contents($imagePath));
-                $map[$itemName]["DataURI"] = 'data: '.mime_content_type($imagePath).';base64,'.$imageData;
+                $itemMap[$itemName]["DataURI"] = 'data: '.mime_content_type($imagePath).';base64,'.$imageData;
             }
         }
         return $itemMap;
