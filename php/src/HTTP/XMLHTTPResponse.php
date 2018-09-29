@@ -1,9 +1,10 @@
-<?
+<?php
+
 declare(strict_types=1);
 
 namespace App\HTTP;
 
-class HTTPResponse
+class XMLHTTPResponse
 {
 
     private $response;
@@ -12,7 +13,7 @@ class HTTPResponse
     public function __construct(string $response, array $headers)
     {
         $this->response = $response;
-        $this->parsedHeaders = HTTPResponse::parseHeaders($headers);
+        $this->parsedHeaders = XMLHTTPResponse::ParseHeaders($headers);
     }
 
     public static function parseHeaders($headers)

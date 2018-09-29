@@ -4,3 +4,5 @@
 nginx/public/build/build.js
 typescript/build/build.js
 typescript/node_modules/
+data/armory/*
+data/icons/*

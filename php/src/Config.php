@@ -13,6 +13,8 @@ class Config
      */
     public function __construct()
     {
+        $pdoPassword = getenv('SQL_ROOT_PASSWORD');
+
         $this->configData = [
             "jwt" => [
                 "secret" => "megasecret",
@@ -20,7 +22,7 @@ class Config
             "pdo" => [
                 "dataSourceName" => "mysql:host=sql;dbname=boom-time",
                 "username" => "root",
-                "password" => "root"
+                "password" => $pdoPassword
             ],
             "mongo" => [
                 "uri" =>"mongodb://mongo:27017"

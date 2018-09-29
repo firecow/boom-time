@@ -1,5 +1,4 @@
 [client]
 user = root
-password = root
 host = sql
 port = 3306

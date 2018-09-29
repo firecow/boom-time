@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Router\ErrorPage;
 
-use App\PHTML;
 use App\Context;
+use App\PHTML;
 use App\Responses\RouteResponse;
 use App\Responses\StatusCode;
 use Throwable;

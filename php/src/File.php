@@ -27,7 +27,11 @@ class File
         return $content;
     }
 
-    private static function fileExists($filePath): bool
+    /**
+     * @param string $filePath
+     * @return bool
+     */
+    private static function fileExists(string $filePath): bool
     {
         return file_exists($filePath);
     }

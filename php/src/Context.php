@@ -34,7 +34,7 @@ class Context
         return $this->config;
     }
 
-    private function getAccessToken(): ?string
+    public function getAccessToken(): ?string
     {
         $superGlobals = $this->getSuperGlobals();
         $bearerToken = null;

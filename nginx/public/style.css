@@ -7,6 +7,7 @@
 }
 
 html, body {
+    color: white;
     background-color: black;
     margin: 0;
     padding: 0;
@@ -58,4 +59,8 @@ button:hover {
 
 .hidden {
     display: none;
+}
+
+.padding {
+    padding: var(--padding);
 }

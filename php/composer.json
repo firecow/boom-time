@@ -6,7 +6,9 @@
     "ext-json": "*",
     "ext-mongodb": "*",
     "ext-PDO": "*",
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "ext-simplexml": "*",
+    "ext-fileinfo": "*"
   },
   "require-dev": {
 

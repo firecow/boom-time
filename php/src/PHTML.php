@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use Exception;
+use Throwable;
 
 class PHTML
 {
@@ -32,8 +33,13 @@ class PHTML
         unset($ctx);
 
         ob_start();
-        /** @noinspection PhpIncludeInspection */
-        require $phtmlPath;
+        try {
+            /** @noinspection PhpIncludeInspection */
+            require $phtmlPath;
+        } catch (Throwable $ex) {
+            ob_get_clean();
+            throw $ex;
+        }
         $obContent = ob_get_clean();
         if (!$obContent) {
             throw new Exception("ObjectBuffer content is false.");

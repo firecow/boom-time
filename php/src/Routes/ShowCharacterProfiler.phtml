@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta name="viewport" content="initial-scale=1">
+    <title><?= $d("title") ?></title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon"/>
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 5px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
+        grid-gap: 5px;
+        font-family: sans-serif;
+        font-weight: bold;
+        color: white;
+        background-color: black;
+    }
+    body > div {
+        display: flex;
+        font-size: 10px;
+    }
+    .img-wrapper {
+        position: relative;
+        margin-right: 10px;
+    }
+    .img-wrapper img {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        border: 2px solid #fff;
+    }
+    .img-wrapper div {
+        position: absolute;
+        right: 3px;
+        bottom: 3px;
+        color: white;
+        line-height: 1;
+        font-size: 10px;
+        text-shadow: 0 0 3px black;
+    }
+
+</style>
+<body>
+<?php foreach ($d("itemMap") as $item): ?>
+    <div>
+        <div class="img-wrapper">
+            <div><?= $item["Quantity"]?></div>
+            <img style="border-color: <?= $item["Color"] ?>;" src="<?= $item["DataURI"] ?>">
+        </div>
+        <div style="margin-top:3px; color: <?= $item["Color"] ?>;"><?= $item["Name"] ?></div>
+    </div>
+<?php endforeach; ?>
+
+</body>
+</html>

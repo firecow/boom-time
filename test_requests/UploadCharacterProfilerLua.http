@@ -1,0 +1,11 @@
+POST http://46.101.169.190:3333/bagsandbank/upload/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJQanVza2UiLCJyZWFsbSI6Iktyb25vc19JSUkifQ.Qt0qkSAI2ZdHJFOw-UEoejwcnlZxNSwVJc91CW40IV8
+Content-Type: multipart/form-data; boundary="webkitboundary_abcd"
+
+--webkitboundary_abcd
+Content-Disposition: form-data; name="file"; filename="CharacterProfiler.lua"
+
+< CharacterProfiler.lua
+--webkitboundary_abcd
+
+###

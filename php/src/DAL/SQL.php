@@ -40,9 +40,24 @@ class SQL
         $result = $stmt->execute($inputParams);
         if ($result === false) {
             $encodedInputParams = JSON::encode($inputParams);
-            throw new DAOException("PDO statement execute failed `$statement` `$encodedInputParams``");
+            throw new DAOException("PDO statement execute failed `$statement` `$encodedInputParams");
         }
         return $stmt;
+    }
+
+    /**
+     * @param string $statement
+     * @return PDOStatement
+     * @throws Exception
+     */
+    public function raw(string $statement): PDOStatement
+    {
+        $pdo = $this->pdo;
+        $statement = $pdo->query($statement);
+        if ($statement === false) {
+            throw new DAOException("PDO statement execute failed `$statement`");
+        }
+        return $statement;
     }
 
     /**

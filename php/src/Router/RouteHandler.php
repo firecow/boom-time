@@ -9,6 +9,8 @@ use App\Responses\RouteResponse;
 use App\Router\ErrorPage\InternalServerError;
 use App\Router\FourOhFourPage\FourOhFour;
 use App\Routes\Armory;
+use App\Routes\ShowCharacterProfiler;
+use App\Routes\UploadCharacterProfilerLua;
 use Throwable;
 
 class RouteHandler
@@ -25,6 +27,14 @@ class RouteHandler
         $this->addRouteFunction("/armory/", function($endOfRoute) use ($ctx) {
             $route = new Armory();
             return $route->executeRoute($ctx, ["photoId" => $endOfRoute]);
+        });
+        $this->addRouteFunction("/bagsandbank/upload/", function() use ($ctx) {
+            $route = new UploadCharacterProfilerLua();
+            return $route->executeRoute($ctx, []);
+        });
+        $this->addRouteFunction("/bagsandbank/", function($endOfRoute) use ($ctx) {
+            $route = new ShowCharacterProfiler();
+            return $route->executeRoute($ctx, ["charName" => $endOfRoute]);
         });
 
     }
