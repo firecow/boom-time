@@ -28,7 +28,7 @@ $statement = $sql->raw("SELECT charName FROM characters");
 $total = $statement->rowCount();
 foreach ($statement as $key => $row) {
     $charName = $row['charName'];
-    $url = "http://armory.twinstar.cz/character-sheet.xml?r=Kronos+III&cn=$charName";
+    $url = "http://armory.twinstar.cz/character-sheet.xml?r=KronosIII&cn=$charName";
     $httpRequest = new XMLHTTPRequest($url);
     $response = $httpRequest->send();
 
