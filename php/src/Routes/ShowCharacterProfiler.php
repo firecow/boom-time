@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Routes;
 
 use App\Context;
+use App\Exceptions\NotFoundRouteException;
 use App\IconHandler;
 use App\LUAParser;
 use App\ObjectPath\ObjectPath;
@@ -25,7 +26,11 @@ class ShowCharacterProfiler extends Route
     public function executeRoute(Context $ctx, array $routeArguments): RouteResponse
     {
         $charName = $routeArguments['charName'];
-        $itemMap = $this->parseToItemMap("../data/character_profiler/$charName");
+        $filePath = "../data/character_profiler/$charName";
+        if (!file_exists($filePath)) {
+            throw new NotFoundRouteException("(404) Cannot find '$charName'");
+        }
+        $itemMap = $this->parseToItemMap($filePath);
         $data = [
             "title" => $charName,
             "itemMap" => $itemMap
