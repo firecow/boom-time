@@ -19,14 +19,16 @@ class PHTML
     public static function create(string $phtmlPath, array $data, Context $ctx): string
     {
 
+
+
         /** @noinspection PhpUnusedLocalVariableInspection */
         $phtml = function (string $path, array $data) use ($ctx) {
             echo PHTML::create($path, $data, $ctx);
         };
 
         /** @noinspection PhpUnusedLocalVariableInspection */
-        $d = function(string $opPath) use ($data) {
-            return $data[$opPath];
+        $d = function(string $dataKey) use ($data){
+            return $data[$dataKey];
         };
 
         // Do not expose entire phtml context to .phtml files.

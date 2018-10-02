@@ -10,5 +10,36 @@
 </head>
 <body>
 
+<div class="padding">
+    <form>
+        <select title="class">
+            <option value="1">Warriors</option>
+            <option value="2">Paladins</option>
+            <option value="3">Hunters</option>
+            <option value="4">Rogues</option>
+            <option value="5">Priests</option>
+            <option value="8">Mages</option>
+            <option value="9">Warlocks</option>
+            <option value="11">Druids</option>
+        </select>
+    </form>
+</div>
+
+<table>
+    <tr>
+        <? foreach ($d("tableHeaders") as $value): ?>
+        <th><div style="width: 100px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $value; ?></div></th>
+        <? endforeach; ?>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Hej</td>
+        <td>Hej</td>
+    </tr>
+</table>
+
 </body>
 </html>

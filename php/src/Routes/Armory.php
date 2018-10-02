@@ -21,9 +21,31 @@ class Armory extends Route
      */
     public function executeRoute(Context $ctx, array $routeArguments): RouteResponse
     {
-        $data = array(
+        $classId = 4;
+        $sql = $ctx->createSQL();
+
+        $tableHeaders = [""];
+
+        $statement = $sql->raw("
+          SELECT characters.charName as charName, items.itemName as itemName FROM characters
+            JOIN items ON items.charName = characters.charName
+          WHERE characters.classId = $classId AND characters.rank IS NOT NULL AND rank < 7
+          ORDER BY characters.rank, characters.highestPvpRank DESC, characters.charName, items.level DESC, items.rarity DESC;
+        ");
+
+        $charItems = [];
+
+        foreach ($statement as $row) {
+            $tableHeaders[] = $row["charName"];
+            $charItems[$row["charName"]] = $row['itemName'];
+        }
+        $tableHeaders = array_unique($tableHeaders);
+
+        $data = [
             "title" => "Boom Time",
-        );
+            "tableHeaders" => $tableHeaders,
+            "charItems" => $charItems
+        ];
         $html = PHTML::create("src/Routes/Armory.phtml", $data, $ctx);
 
         return new HtmlTextRouteResponse($html);
