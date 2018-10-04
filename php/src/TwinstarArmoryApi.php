@@ -44,10 +44,13 @@ class TwinstarArmoryApi {
             $icon = $child["icon"];
             $itemName = $child["name"];
             $slot = $child["slot"];
+            $type = $child["inventoryType"];
             $itemId = $child["id"];
+            $enchant = $child["permanentenchant"];
+
             IconHandler::initIcon($icon);
-            $query = "INSERT INTO items (charName, itemName, itemId, slot, icon, rarity, level, lastSeen, firstSeen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE slot=VALUES(slot), itemId=VALUES(itemId), icon=VALUES(icon), rarity=VALUES(rarity), level=VALUES(level)";
-            $sql->execute($query, [$charName, $itemName, $itemId, $slot, $icon, $child["rarity"], $child["level"], $lastModified, $lastModified]);
+            $query = "INSERT INTO items (charName, itemName, itemId, slot, type, enchant, icon, rarity, level, lastSeen, firstSeen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE slot=VALUES(slot), type=VALUES(type), enchant=VALUES(enchant), itemId=VALUES(itemId), icon=VALUES(icon), rarity=VALUES(rarity), level=VALUES(level)";
+            $sql->execute($query, [$charName, $itemName, $itemId, $slot, $type, $enchant, $icon, $child["rarity"], $child["level"], $lastModified, $lastModified]);
 
 
             $query = "UPDATE items SET lastSeen=GREATEST(lastSeen, ?), firstSeen=LEAST(firstSeen, ?) WHERE charName=? AND itemName=?";

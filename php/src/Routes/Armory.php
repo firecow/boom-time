@@ -8,6 +8,7 @@ use App\PHTML;
 use App\Responses\HtmlTextRouteResponse;
 use App\Responses\RouteResponse;
 use App\Router\Route;
+use PDO;
 use Throwable;
 
 class Armory extends Route
@@ -21,30 +22,60 @@ class Armory extends Route
      */
     public function executeRoute(Context $ctx, array $routeArguments): RouteResponse
     {
-        $classId = 4;
         $sql = $ctx->createSQL();
+        $classId = $sql->quote($_GET["class"] ?? "1");
 
-        $tableHeaders = [""];
+        $charNames = [];
+        $types = [];
+        $typeNames = [];
+        $items = [];
+
+        $statement = $sql->raw("SELECT * FROM types WHERE enabled = true ORDER BY position");
+        foreach ($statement as $row) {
+            $typeNames[$row["type"]] = $row["typeName"];
+            $types[] = $row["type"];
+        }
 
         $statement = $sql->raw("
-          SELECT characters.charName as charName, items.itemName as itemName FROM characters
+          SELECT * FROM characters
             JOIN items ON items.charName = characters.charName
-          WHERE characters.classId = $classId AND characters.rank IS NOT NULL AND rank < 7
-          ORDER BY characters.rank, characters.highestPvpRank DESC, characters.charName, items.level DESC, items.rarity DESC;
+            JOIN rarities ON items.rarity = rarities.rarity
+          WHERE characters.classId = $classId 
+            AND characters.rank IS NOT NULL 
+            AND rank < 6 
+            AND items.level >= 52
+          ORDER BY 
+            characters.rank, 
+            characters.highestPvpRank DESC, 
+            characters.charName ASC, 
+            items.type ASC, 
+            items.level DESC, 
+            items.rarity DESC, 
+            items.itemName ASC;
         ");
 
-        $charItems = [];
-
         foreach ($statement as $row) {
-            $tableHeaders[] = $row["charName"];
-            $charItems[$row["charName"]] = $row['itemName'];
+            $charNames[] = $row["charName"];
+            $items[] = $row;
         }
-        $tableHeaders = array_unique($tableHeaders);
+        $charNames = array_unique($charNames);
+        $types = array_unique($types);
 
         $data = [
             "title" => "Boom Time",
-            "tableHeaders" => $tableHeaders,
-            "charItems" => $charItems
+            "charNames" => $charNames,
+            "types" => $types,
+            "getTypeName" => function(int $type) use ($typeNames) {
+                return $typeNames[$type] ?? "''$type''";
+            },
+            "classSelected" => function($class) use ($classId) {
+                return strcmp("'$class'", $classId) == 0 ? "selected" : "";
+            },
+            "getItems" => function(string $charName, int $type) use ($items) {
+                return array_filter($items, function(array $item) use ($charName, $type) {
+                    return $charName === $item["charName"] && $item['type'] === $type;
+                });
+            }
         ];
         $html = PHTML::create("src/Routes/Armory.phtml", $data, $ctx);
 

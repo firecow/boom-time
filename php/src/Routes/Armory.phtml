@@ -6,39 +6,45 @@
     <title><?= $d("title") ?></title>
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon"/>
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
 
 <div class="padding">
-    <form>
-        <select title="class">
-            <option value="1">Warriors</option>
-            <option value="2">Paladins</option>
-            <option value="3">Hunters</option>
-            <option value="4">Rogues</option>
-            <option value="5">Priests</option>
-            <option value="8">Mages</option>
-            <option value="9">Warlocks</option>
-            <option value="11">Druids</option>
+    <form action="/armory/" method="get">
+        <select name="class" onchange="this.form.submit()">
+            <option value="1" <?= $d("classSelected")('1') ?>>Warriors</option>
+            <option value="2" <?= $d("classSelected")('2') ?>>Paladins</option>
+            <option value="3" <?= $d("classSelected")('3') ?>>Hunters</option>
+            <option value="4" <?= $d("classSelected")('4') ?>>Rogues</option>
+            <option value="5" <?= $d("classSelected")('5') ?>>Priests</option>
+            <option value="8" <?= $d("classSelected")('8') ?>>Mages</option>
+            <option value="9" <?= $d("classSelected")('9') ?>>Warlocks</option>
+            <option value="11" <? $d("classSelected")('11') ?>>Druids</option>
         </select>
     </form>
 </div>
 
 <table>
     <tr>
-        <? foreach ($d("tableHeaders") as $value): ?>
-        <th><div style="width: 100px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $value; ?></div></th>
+        <th></th>
+        <? foreach ($d("charNames") as $charName): ?>
+        <th><div class="small-capped"><?= $charName; ?></div></th>
         <? endforeach; ?>
     </tr>
+    <? foreach ($d("types") as $type): ?>
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Hej</td>
-        <td>Hej</td>
+        <th><div class="padding"><?= $d("getTypeName")($type) ?></div></th>
+        <? foreach ($d("charNames") as $charName): ?>
+        <td valign="top">
+            <? foreach ($d("getItems")($charName, $type) as $item): ?>
+            <div class="small-capped"><img style="vertical-align: middle; border-radius: 2px; border: 1px solid <?= $item['color'] ?>; margin-right:4px;" width="18" height="18" src="/icons/<?= $item["icon"] ?>.jpg"><?= $item["itemName"] ?></div>
+            <? endforeach; ?>
+        </td>
+        <? endforeach; ?>
     </tr>
+    <? endforeach ?>
 </table>
 
 </body>

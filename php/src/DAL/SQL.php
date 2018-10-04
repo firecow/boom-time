@@ -26,6 +26,9 @@ class SQL
         $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
 
+    public function quote(string $str): string {
+        return $this->pdo->quote($str);
+    }
 
     /**
      * @param string $statement

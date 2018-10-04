@@ -18,9 +18,6 @@ class PHTML
      */
     public static function create(string $phtmlPath, array $data, Context $ctx): string
     {
-
-
-
         /** @noinspection PhpUnusedLocalVariableInspection */
         $phtml = function (string $path, array $data) use ($ctx) {
             echo PHTML::create($path, $data, $ctx);

@@ -1,9 +1,9 @@
 :root {
     --padding: 10px;
     --margin: 5px;
-    --mediumsize: 16px;
-    --smallsize: 13px;
-    --tinysize: 11px;
+    --mediumsize: 12px;
+    --smallsize: 11px;
+    --tinysize: 8px;
 }
 
 html, body {
@@ -11,14 +11,14 @@ html, body {
     background-color: black;
     margin: 0;
     padding: 0;
-    font-size: var(--mediumsize);
-    font-family: monospace;
+    font-size: var(--smallsize);
+    font-family: Roboto, sans-serif;
 }
 
 h3 {
     font-weight: bold;
     text-align: center;
-    font-size: var(--mediumsize);
+    font-size: var(--smallsize);
     padding: var(--padding);
     margin: var(--margin);
 }
@@ -63,4 +63,20 @@ button:hover {
 
 .padding {
     padding: var(--padding);
+}
+
+table {
+    border-spacing: 0;
+}
+
+tr:nth-child(even) td {
+    background-color: #2a2a2a;
+}
+
+.small-capped {
+    padding: 5px;
+    width: 125px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
