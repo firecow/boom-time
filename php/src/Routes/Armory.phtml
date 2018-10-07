@@ -13,16 +13,18 @@
 
 <div class="padding">
     <form action="/armory/" method="get">
-        <select name="class" onchange="this.form.submit()">
-            <option value="1" <?= $d("classSelected")('1') ?>>Warriors</option>
-            <option value="2" <?= $d("classSelected")('2') ?>>Paladins</option>
-            <option value="3" <?= $d("classSelected")('3') ?>>Hunters</option>
-            <option value="4" <?= $d("classSelected")('4') ?>>Rogues</option>
-            <option value="5" <?= $d("classSelected")('5') ?>>Priests</option>
-            <option value="8" <?= $d("classSelected")('8') ?>>Mages</option>
-            <option value="9" <?= $d("classSelected")('9') ?>>Warlocks</option>
-            <option value="11" <? $d("classSelected")('11') ?>>Druids</option>
+        <select name="classId" onchange="this.form.submit()">
+            <? foreach ($d("classes") as $class): ?>
+            <option value="<?= $class['classId'] ?>" <?= $class['selectedAttr'] ?>><?= $class['className'] ?></option>
+            <? endforeach; ?>
         </select>
+        <? if ($d("specCount") > 0) : ?>
+        <!--<select name="specId" onchange="this.form.submit()">
+            <?/* foreach ($d("specs") as $spec): */?>
+            <option value="<?/*= $spec['specId'] */?>" <?/*= $spec['selectedAttr'] */?>><?/*= $spec['specName'] */?></option>
+            <?/* endforeach; */?>
+        </select>-->
+        <? endif; ?>
     </form>
 </div>
 
@@ -35,10 +37,10 @@
     </tr>
     <? foreach ($d("types") as $type): ?>
     <tr>
-        <th><div class="padding"><?= $d("getTypeName")($type) ?></div></th>
+        <th><div class="padding"><?= $d("groupNames")[$type['group']] ?></div></th>
         <? foreach ($d("charNames") as $charName): ?>
         <td valign="top">
-            <? foreach ($d("getItems")($charName, $type) as $item): ?>
+            <? foreach ($d("getItems")($charName, $type['group']) as $item): ?>
             <div class="small-capped"><img style="vertical-align: middle; border-radius: 2px; border: 1px solid <?= $item['color'] ?>; margin-right:4px;" width="18" height="18" src="/icons/<?= $item["icon"] ?>.jpg"><?= $item["itemName"] ?></div>
             <? endforeach; ?>
         </td>

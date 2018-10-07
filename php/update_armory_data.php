@@ -44,7 +44,6 @@ foreach ($statement as $key => $row) {
         echo "$ex\n";
         echo "$url\n";
     }
-
 }
 
 // Iterate xml files to support legacy data.
