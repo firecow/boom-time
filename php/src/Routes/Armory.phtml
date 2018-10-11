@@ -41,7 +41,13 @@
         <? foreach ($d("charNames") as $charName): ?>
         <td valign="top">
             <? foreach ($d("getItems")($charName, $type['group']) as $item): ?>
-            <div class="small-capped"><img style="vertical-align: middle; border-radius: 2px; border: 1px solid <?= $item['color'] ?>; margin-right:4px;" width="18" height="18" src="/icons/<?= $item["icon"] ?>.jpg"><?= $item["itemName"] ?></div>
+            <div class="small-capped">
+                <img style="vertical-align: middle; border-radius: 2px; border: 1px solid <?= $item['color'] ?>; margin-right:4px;" width="18" height="18" src="/icons/<?= $item["icon"] ?>.jpg">
+                <?= $item["itemName"] ?><br>
+                <? if ($item["enchant"] != null) :?>
+                <span style="color: #31ff3c; font-size: 9px;"><?= $item["enchantName"] != null ? $item["enchantName"] : "{{{$item["enchant"]}}}" ?></span>
+                <? endif; ?>
+            </div>
             <? endforeach; ?>
         </td>
         <? endforeach; ?>

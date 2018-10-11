@@ -50,12 +50,21 @@ class Armory extends Route
 
         // Get filtered items.
         $items = $sql->raw("
-          SELECT * FROM characters
+          SELECT 
+          characters.charName, 
+          items.itemName, 
+          items.enchant as enchant,
+          items.icon,
+          enchants.enchantName as enchantName,
+          type_groups.group,
+          rarities.color
+          FROM characters
             JOIN items ON items.charName = characters.charName
             JOIN rarities ON items.rarity = rarities.rarity
             JOIN types ON items.type = types.type 
             JOIN type_groups ON types.group = type_groups.group
             LEFT JOIN disabled_items ON items.itemId = disabled_items.itemId
+            LEFT JOIN enchants ON items.enchant = enchants.enchant
           WHERE characters.classId = $classId 
             AND characters.rank IS NOT NULL 
             AND rank < 6 
