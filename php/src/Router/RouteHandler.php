@@ -9,6 +9,7 @@ use App\Responses\RouteResponse;
 use App\Router\ErrorPage\InternalServerError;
 use App\Router\FourOhFourPage\FourOhFour;
 use App\Routes\Armory;
+use App\Routes\ChangeSpec;
 use App\Routes\ShowCharacterProfiler;
 use App\Routes\UploadCharacterProfilerLua;
 use Throwable;
@@ -35,6 +36,10 @@ class RouteHandler
         $this->addRouteFunction("/bagsandbank/", function($endOfRoute) use ($ctx) {
             $route = new ShowCharacterProfiler();
             return $route->executeRoute($ctx, ["charName" => $endOfRoute]);
+        });
+        $this->addRouteFunction("/changespec/", function() use ($ctx) {
+            $route = new ChangeSpec();
+            return $route->executeRoute($ctx, []);
         });
 
     }

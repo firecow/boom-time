@@ -73,9 +73,7 @@ tr:nth-child(even) td {
     background-color: #2a2a2a;
 }
 
-.small-capped {
-    padding: 5px;
-    width: 125px;
+.text-ellipsis {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

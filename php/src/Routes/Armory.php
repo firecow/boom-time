@@ -29,24 +29,23 @@ class Armory extends Route
             $groupNames[$type["group"]] = $type["groupName"];
         }
 
-        $classes = $sql->raw("SELECT * FROM classes")->fetchAll();
-        $classId = isset($_GET["classId"]) ? $sql->quote($_GET['classId']) : $sql->quote("{$classes[0]['classId']}");
-        foreach ($classes as &$class) {
-            $class['selectedAttr'] = "'{$class['classId']}'" == $classId ? "selected": "";
-        }
-
-        $specs = $sql->raw("SELECT * FROM specs WHERE classId = $classId")->fetchAll();
+        $specs = $sql->raw("SELECT * FROM specs")->fetchAll();
+        $specs[] = ["specId" => "nospec", "specName" => "Unspecced"];
         $specCount = count($specs);
-        $selectedSpecId = isset($_GET["specId"]) && $specCount > 0 ? $sql->quote($_GET["specId"]) : null;
+        $selectedSpecId = isset($_GET["specId"]) ? $sql->quote($_GET["specId"]) : '1';
         foreach ($specs as &$spec) {
             $spec['selectedAttr'] = "'{$spec['specId']}'" == $selectedSpecId ? "selected": "";
         }
 
-        if ($selectedSpecId == null) {
-            $characters = $sql->raw("SELECT * FROM characters WHERE classId = $classId")->fetchAll();
+        error_log($selectedSpecId);
+
+        if ($selectedSpecId === "'nospec'") {
+            $chars = $sql->raw("SELECT charName FROM characters WHERE specId IS NULL AND rank < 8")->fetchAll();
         } else {
-            $characters = $sql->raw("SELECT * FROM characters WHERE classId = $classId AND specId = $selectedSpecId")->fetchAll();
+            $chars = $sql->raw("SELECT charName FROM characters WHERE specId = $selectedSpecId AND rank < 8")->fetchAll();
         }
+
+        $charNames = implode("','", array_map(function($char) { return $char['charName']; }, $chars));
 
         // Get filtered items.
         $items = $sql->raw("
@@ -65,16 +64,14 @@ class Armory extends Route
             JOIN type_groups ON types.group = type_groups.group
             LEFT JOIN disabled_items ON items.itemId = disabled_items.itemId
             LEFT JOIN enchants ON items.enchant = enchants.enchant
-          WHERE characters.classId = $classId 
+          WHERE characters.charName IN ('$charNames') 
             AND characters.rank IS NOT NULL 
-            AND rank < 6 
             AND items.level >= 52
             AND disabled_items.itemId IS NULL
-          ORDER BY 
+          ORDER BY
             characters.rank, 
             characters.highestPvpRank DESC, 
             characters.charName ASC, 
-            items.type ASC, 
             items.level DESC, 
             items.rarity DESC, 
             items.itemName ASC;
@@ -94,7 +91,6 @@ class Armory extends Route
             "groupNames" => $groupNames,
             "specs" => $specs,
             "specCount" => $specCount,
-            "classes" => $classes,
             "getItems" => function(string $charName, int $group) use ($items) {
                 return array_filter($items, function(array $item) use ($charName, $group) {
                     return $charName === $item["charName"] && $item['group'] === $group;

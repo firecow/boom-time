@@ -8,23 +8,26 @@
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/style.css">
+
+    <script>
+        function submitSpec(event) {
+            const xmlHttpRequest = new XMLHttpRequest();
+            const formData = new FormData(event.currentTarget);
+            xmlHttpRequest.open("POST", "/changespec/", true);
+            xmlHttpRequest.send(formData);
+            window.location.reload();
+        }
+    </script>
 </head>
 <body>
 
 <div class="padding">
     <form action="/armory/" method="get">
-        <select name="classId" onchange="this.form.submit()">
-            <? foreach ($d("classes") as $class): ?>
-            <option value="<?= $class['classId'] ?>" <?= $class['selectedAttr'] ?>><?= $class['className'] ?></option>
+        <select name="specId" onchange="this.form.submit()">
+            <? foreach ($d("specs") as $spec): ?>
+            <option value="<?= $spec['specId'] ?>" <?= $spec['selectedAttr'] ?>><?= $spec['specName'] ?></option>
             <? endforeach; ?>
         </select>
-        <? if ($d("specCount") > 0) : ?>
-        <!--<select name="specId" onchange="this.form.submit()">
-            <?/* foreach ($d("specs") as $spec): */?>
-            <option value="<?/*= $spec['specId'] */?>" <?/*= $spec['selectedAttr'] */?>><?/*= $spec['specName'] */?></option>
-            <?/* endforeach; */?>
-        </select>-->
-        <? endif; ?>
     </form>
 </div>
 
@@ -32,7 +35,19 @@
     <tr>
         <th></th>
         <? foreach ($d("charNames") as $charName): ?>
-        <th><div class="small-capped"><?= $charName; ?></div></th>
+        <th>
+            <div class="text-ellipsis" style="display: inline-block"><?= $charName; ?></div>
+            <div style="display: inline-block">
+            <!--<form method="post" id="specForm" onchange="submitSpec(event);">
+                <select name="newSpecId">
+                    <?/* foreach ($d("specs") as $spec): */?>
+                        <option value="<?/*= $spec['specId'] */?>" <?/*= $spec['selectedAttr'] */?>><?/*= $spec['specName'] */?></option>
+                    <?/* endforeach; */?>
+                </select>
+                <input name="charName" value="<?/*= $charName; */?>" hidden/>
+            </form>-->
+            </div>
+        </th>
         <? endforeach; ?>
     </tr>
     <? foreach ($d("types") as $type): ?>
@@ -41,11 +56,11 @@
         <? foreach ($d("charNames") as $charName): ?>
         <td valign="top">
             <? foreach ($d("getItems")($charName, $type['group']) as $item): ?>
-            <div class="small-capped">
-                <img style="vertical-align: middle; border-radius: 2px; border: 1px solid <?= $item['color'] ?>; margin-right:4px;" width="18" height="18" src="/icons/<?= $item["icon"] ?>.jpg">
-                <?= $item["itemName"] ?><br>
+            <div style="padding:1px; display: flex; align-items: center;">
+                <img style="border-radius: 2px; border: 1px solid <?= $item['color'] ?>; margin-right:4px;" width="18" height="18" src="/icons/<?= $item["icon"] ?>.jpg">
+                <div class="text-ellipsis" style="width: 150px;display: inline-block;"><?= $item["itemName"] ?></div>
                 <? if ($item["enchant"] != null) :?>
-                <span style="color: #31ff3c; font-size: 9px;"><?= $item["enchantName"] != null ? $item["enchantName"] : "{{{$item["enchant"]}}}" ?></span>
+                <div class="text-ellipsis" style="width: 50px;display: inline-block; color: #31ff3c; font-size: 9px;"><?= $item["enchantName"] != null ? $item["enchantName"] : "{{{$item["enchant"]}}}" ?></div>
                 <? endif; ?>
             </div>
             <? endforeach; ?>
