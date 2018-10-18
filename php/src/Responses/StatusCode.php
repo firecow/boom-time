@@ -20,7 +20,7 @@ class StatusCode
     // Trying to access without specifying access token.
     const UNAUTHORIZED = "401 Unauthorized";
 
-    // Input was wellformed and present, but input data could not be used to fullfill the use case.;
+    // Input was wellformed and present, but input data could not be used to fullfill the use case.
     const UNPROCESSABLE_ENTITY = "422 Unprocessable Entity";
 
     // An unhandled exception occured.
