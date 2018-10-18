@@ -6,7 +6,7 @@ namespace App\Router\FourOhFourPage;
 use App\Context;
 use App\PHTML;
 use App\Responses\RouteResponse;
-use App\Responses\StatusCode;
+use App\Responses\ResponseCode;
 use Throwable;
 
 class FourOhFour
@@ -19,6 +19,6 @@ class FourOhFour
     public static function generateFourOhFourResponse(Context $ctx): RouteResponse
     {
         $html = PHTML::create('src/Router/FourOhFourPage/FourOhFour.phtml', array(), $ctx);
-        return new RouteResponse(StatusCode::NOT_FOUND, "text/html", $html);
+        return new RouteResponse(ResponseCode::NOT_FOUND, "text/html", $html);
     }
 }

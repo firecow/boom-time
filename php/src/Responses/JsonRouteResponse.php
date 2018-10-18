@@ -11,7 +11,7 @@ class JsonRouteResponse extends RouteResponse
     public function __construct(array $responseBody)
     {
         $responseBodyEncoded = JSON::encode($responseBody);
-        parent::__construct(StatusCode::OK, ContentType::JSON, $responseBodyEncoded);
+        parent::__construct(ResponseCode::OK, ContentType::JSON, $responseBodyEncoded);
     }
 
 }

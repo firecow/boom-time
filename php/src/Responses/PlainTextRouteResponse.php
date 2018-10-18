@@ -8,7 +8,7 @@ class PlainTextRouteResponse extends RouteResponse
 
     public function __construct(string $responseBody)
     {
-        parent::__construct(StatusCode::OK, ContentType::PLAIN_TEXT, $responseBody);
+        parent::__construct(ResponseCode::OK, ContentType::PLAIN_TEXT, $responseBody);
     }
 
 }

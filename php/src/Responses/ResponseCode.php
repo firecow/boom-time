@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Responses;
 
-class StatusCode
+class ResponseCode
 {
     // Script executed as intended, and everything was ok.
     const OK = "200 Ok";

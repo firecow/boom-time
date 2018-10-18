@@ -6,7 +6,7 @@ namespace App\Router\ErrorPage;
 use App\Context;
 use App\PHTML;
 use App\Responses\RouteResponse;
-use App\Responses\StatusCode;
+use App\Responses\ResponseCode;
 use Throwable;
 
 class InternalServerError
@@ -16,6 +16,6 @@ class InternalServerError
         $html = PHTML::create('src/Router/ErrorPage/InternalServerError.phtml', array(
             'pretty' => "$throwable"
         ), $ctx);
-        return new RouteResponse(StatusCode::INTERNAL_SERVER_ERROR, "text/html", $html);
+        return new RouteResponse(ResponseCode::INTERNAL_SERVER_ERROR, "text/html", $html);
     }
 }
