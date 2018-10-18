@@ -49,18 +49,13 @@ class TwinstarArmoryApi {
             $enchant = $child["permanentenchant"] == '0' ? null : $child["permanentenchant"];
 
             IconHandler::initIcon($icon);
-            $query = "INSERT INTO items (charName, itemName, itemId, slot, type, enchant, icon, rarity, level, lastSeen, firstSeen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE slot=VALUES(slot), type=VALUES(type), enchant=COALESCE(VALUES(enchant), enchant), itemId=VALUES(itemId), icon=VALUES(icon), rarity=VALUES(rarity), level=VALUES(level)";
-            $sql->execute($query, [$charName, $itemName, $itemId, $slot, $type, $enchant, $icon, $child["rarity"], $child["level"], $lastModified, $lastModified]);
+            $query = "INSERT INTO items (charName, itemName, itemId, slot, type, icon, rarity, level, lastSeen, firstSeen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE slot=VALUES(slot), type=VALUES(type), itemId=VALUES(itemId), icon=VALUES(icon), rarity=VALUES(rarity), level=VALUES(level)";
+            $sql->execute($query, [$charName, $itemName, $itemId, $slot, $type, $icon, $child["rarity"], $child["level"], $lastModified, $lastModified]);
 
 
-            $query = "UPDATE items SET lastSeen=GREATEST(lastSeen, ?), firstSeen=LEAST(firstSeen, ?) WHERE charName=? AND itemName=?";
-            $sql->execute($query, [$lastModified, $lastModified, $charName, $itemName]);
+            $query = "UPDATE items SET enchant=?, lastSeen=GREATEST(lastSeen, ?), firstSeen=LEAST(firstSeen, ?) WHERE charName=? AND itemName=?";
+            $sql->execute($query, [$enchant, $lastModified, $lastModified, $charName, $itemName]);
         }
-//            $item['enchant'] = $child['permanentEnchantSpellName'] ? "{$child['permanentEnchantSpellName']}" : null;
-//            if ($child['permanentEnchantItemId'] != null) {
-//                $item['enchant'] = isset($enchantIds["{$child['permanentEnchantItemId']}"]) ? $enchantIds["{$child['permanentEnchantItemId']}"] : "Unknown: {$child['permanentEnchantItemId']}";
-//            }
-//        }
     }
 
 }

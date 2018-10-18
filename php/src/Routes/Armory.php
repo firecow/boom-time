@@ -64,6 +64,7 @@ class Armory extends Route
             LEFT JOIN enchants ON items.enchant = enchants.enchant
           WHERE characters.charName IN ('$charNames') 
             AND characters.rank IS NOT NULL 
+            AND characters.level >= 58
             AND items.level >= 52
             AND disabled_items.itemId IS NULL
           ORDER BY
