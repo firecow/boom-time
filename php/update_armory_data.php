@@ -47,18 +47,18 @@ foreach ($statement as $key => $row) {
 }
 
 // Iterate xml files to support legacy data.
-$it = new RecursiveDirectoryIterator("../data/armory/");
-$it = new RecursiveIteratorIterator($it);
-$it = new RegexIterator($it, "/\.xml/i");
-foreach ($it as $splFile) {
-    $fileName = $splFile->getPathname();
-    try {
-        TwinstarArmoryApi::InitCharacterByXML(simplexml_load_string(file_get_contents($fileName)), $sql);
-    } catch (Throwable $ex) {
-        echo "$ex\n";
-        echo "$fileName\n";
-    }
-}
+//$it = new RecursiveDirectoryIterator("../data/armory/");
+//$it = new RecursiveIteratorIterator($it);
+//$it = new RegexIterator($it, "/\.xml/i");
+//foreach ($it as $splFile) {
+//    $fileName = $splFile->getPathname();
+//    try {
+//        TwinstarArmoryApi::InitCharacterByXML(simplexml_load_string(file_get_contents($fileName)), $sql);
+//    } catch (Throwable $ex) {
+//        echo "$ex\n";
+//        echo "$fileName\n";
+//    }
+//}
 
 echo "--- Elapsed: " . (microtime(true) - $time) . " ---\n";
 
