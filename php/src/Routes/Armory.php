@@ -37,8 +37,6 @@ class Armory extends Route
             $spec['selectedAttr'] = "'{$spec['specId']}'" == $selectedSpecId ? "selected": "";
         }
 
-        error_log($selectedSpecId);
-
         if ($selectedSpecId === "'nospec'") {
             $chars = $sql->raw("SELECT charName FROM characters WHERE specId IS NULL AND rank < 8")->fetchAll();
         } else {
