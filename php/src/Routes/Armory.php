@@ -66,7 +66,10 @@ class Armory extends Route
         foreach ($locations as &$location) {
             $location['checkedAttr'] = in_array($location['name'], $selectedLocations) ? "checked" : "";
         }
+        $showBestInSlot = in_array('preraid-bis', $selectedLocations);
         $selectedLocations = implode("','", $selectedLocations);
+
+        //AND (spec_best_in_slot.sbisId IS NOT NULL OR
 
         // Get filtered items.
         $items = $sql->raw("
@@ -83,6 +86,7 @@ class Armory extends Route
             JOIN types ON items.type = types.type 
             JOIN type_groups ON types.group = type_groups.group
             LEFT JOIN items_location ON items.itemId = items_location.itemId
+            LEFT JOIN spec_best_in_slot ON spec_best_in_slot.itemId = items.itemId
             LEFT JOIN disabled_items ON items.itemId = disabled_items.itemId
             LEFT JOIN enchants ON items.enchant = enchants.enchant
           WHERE items.charName IN ('$implodedCharNames') 
