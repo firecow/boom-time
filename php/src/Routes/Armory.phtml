@@ -21,23 +21,25 @@
 </head>
 <body>
 
-<div class="padding">
-    <form action="/armory/" method="get">
-        <? foreach ($d("specs") as $spec): ?>
-        <div style="display:inline-block;">
-            <input onclick="this.form.submit()" style="position:absolute; margin-left:20px; margin-top: 20px;" type="checkbox" name="specs[]" value="<?= $spec['specId']; ?>" <?= $spec['checkedAttr'] ?>/>
-            <img alt="<?= $spec['specName'] ?>" style="border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.7)" width="32" height="32" src="/icons/<?= $spec["icon"] ?>">
-        </div>
-        <? endforeach; ?>
-        <div style="display: inline-block; margin-left: 20px;"></div>
-        <? foreach ($d("locations") as $i => $location): ?>
-        <div style="display:inline-block;">
+<form class="padding" action="/armory/" method="get">
+    <? foreach ($d("specs") as $spec): ?>
+    <div style="display:inline-block; vertical-align: top;">
+        <?php $explodedName = explode(" ", $spec['specName']); ?>
+        <div style="font-size:9px; text-align: center;"><?= $explodedName[0] ?></div>
+        <input onclick="this.form.submit()" style="position:absolute; margin-left:20px; margin-top: 20px;" type="checkbox" name="specs[]" value="<?= $spec['specId']; ?>" <?= $spec['checkedAttr'] ?>/>
+        <img alt="<?= $spec['specName'] ?>" style="border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.7)" width="32" height="32" src="/icons/<?= $spec["icon"] ?>">
+        <div style="font-size:9px; text-align: center;"><?= $explodedName[1] ?? ""?></div>
+    </div>
+    <? endforeach; ?>
+    <div style="display: inline-block; margin-left: 20px;"></div>
+    <? foreach ($d("locations") as $i => $location): ?>
+    <div style="display:inline-block; vertical-align: top;">
+        <div style="font-size:9px; text-align: center;"><?= $location['name']; ?></div>
         <input onclick="this.form.submit()" style="position:absolute; margin-left:20px; margin-top: 20px;" type="checkbox" name="locations[]" value="<?= $location['name']; ?>" <?= $location['checkedAttr'] ?>/>
         <img style="border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.7)" width="32" height="32" src="/icons/<?= $location["icon"] ?>">
-        </div>
-        <? endforeach; ?>
-    </form>
-</div>
+    </div>
+    <? endforeach; ?>
+</form>
 
 <table>
     <tr>
@@ -47,6 +49,9 @@
             <div class="text-ellipsis" style="display: inline-block; width: 226px;">
                 <span style="color:<?= $char['classColor']; ?>;"><?= $char['charName']; ?></span>
                 <span>(<?= $d("getItemsCount")($char['charName']) ?>)</span>
+            </div>
+            <div>
+                <?= $char['signAttendance']; ?> <?= $char['attendance']; ?>
             </div>
             <div style="display: inline-block">
             <!--<form method="post" id="specForm" onchange="submitSpec(event);">

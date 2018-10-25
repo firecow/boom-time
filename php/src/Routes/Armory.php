@@ -30,7 +30,7 @@ class Armory extends Route
         }
 
         $specs = $sql->raw("SELECT * FROM specs")->fetchAll();
-        $specs[] = ["specId" => "nospec", "specName" => "Unspecced", "icon" => "inv_misc_questionmark.jpg"];
+        $specs[] = ["specId" => "nospec", "specName" => "No-Spec", "icon" => "inv_misc_questionmark.jpg"];
         $selectedSpecs = isset($_GET["specs"]) ? $_GET["specs"] : [];
         foreach ($specs as &$spec) {
             $spec['checkedAttr'] = in_array($spec['specId'], $selectedSpecs) ? "checked" : "";
@@ -38,7 +38,7 @@ class Armory extends Route
         $selectedSpecs = implode("','", $selectedSpecs);
 
         $chars = $sql->raw("
-          SELECT charName, classColor 
+          SELECT charName, classColor, signAttendance, attendance
           FROM characters
           JOIN classes ON classes.classId = characters.classId  
           WHERE COALESCE(specId, 'nospec') IN ('$selectedSpecs') 
