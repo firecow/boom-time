@@ -52,18 +52,33 @@ class TwinstarArmoryApi {
             $itemId = $child["id"];
             $enchant = $child["permanentenchant"] == '0' ? null : $child["permanentenchant"];
 
-            IconHandler::initIcon($icon);
-            $query = "INSERT INTO items (charName, itemName, itemId, slot, type, icon, rarity, level, lastSeen, firstSeen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE slot=VALUES(slot), type=VALUES(type), itemId=VALUES(itemId), icon=VALUES(icon), rarity=VALUES(rarity), level=VALUES(level)";
-            $sql->execute($query, [$charName, $itemName, $itemId, $slot, $type, $icon, $child["rarity"], $child["level"], $lastModified, $lastModified]);
-
             if (!isset($itemCounts["$itemName"])) {
                 $itemCounts["$itemName"] = 0;
             }
             $itemCounts["$itemName"]++;
 
+            IconHandler::initIcon($icon);
+            $query = "
+              INSERT INTO items (charName, itemName, itemId, slot, type, icon, rarity, level, count, enchant, lastSeen, firstSeen) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+              ON DUPLICATE KEY UPDATE 
+                slot=VALUES(slot), 
+                type=VALUES(type), 
+                itemId=VALUES(itemId), 
+                icon=VALUES(icon), 
+                rarity=VALUES(rarity), 
+                level=VALUES(level),
+                lastSeen=GREATEST(lastSeen, VALUES(lastSeen)),
+                firstSeen=LEAST(firstSeen, VALUES(firstSeen)),
+                count=GREATEST(count, VALUES(count)),
+                enchant=VALUES(enchant)
+            ";
+            $sql->execute($query, [
+                $charName, $itemName, $itemId, $slot, $type, $icon, $child["rarity"], $child["level"], $itemCounts["$itemName"], $enchant, $lastModified, $lastModified
+            ]);
 
-            $query = "UPDATE items SET enchant=?, count=GREATEST(count, ?), lastSeen=GREATEST(lastSeen, ?), firstSeen=LEAST(firstSeen, ?) WHERE charName=? AND itemName=?";
-            $sql->execute($query, [$enchant, $itemCounts["$itemName"], $lastModified, $lastModified, $charName, $itemName]);
+            //$query = "UPDATE items SET enchant=?, count=GREATEST(count, ?), lastSeen=GREATEST(lastSeen, ?), firstSeen=LEAST(firstSeen, ?) WHERE charName=? AND itemName=?";
+            //$sql->execute($query, [$enchant, $itemCounts["$itemName"], $lastModified, $lastModified, $charName, $itemName]);
         }
 
     }
