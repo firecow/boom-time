@@ -40,6 +40,10 @@ class TwinstarArmoryApi {
         $query = "INSERT INTO characters (charName, level, classId, raceId, genderId, lastModified, highestPvpRank) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE level=VALUES(level), classId=VALUES(classId), raceId=VALUES(raceId), genderId=VALUES(genderId), lastModified=GREATEST(VALUES(lastModified), lastModified), highestPvpRank=GREATEST(VALUES(highestPvpRank), highestPvpRank)";
         $sql->execute($query, [$charName, $level, $classId, $raceId, $genderId, $lastModified, $rankHighest]);
 
+        /**
+         * @var array
+         */
+        $itemCounts = [];
         foreach ($xml->{"characterInfo"}->{"characterTab"}->{"items"}->children() as $child) {
             $icon = $child["icon"];
             $itemName = $child["name"];
@@ -52,10 +56,16 @@ class TwinstarArmoryApi {
             $query = "INSERT INTO items (charName, itemName, itemId, slot, type, icon, rarity, level, lastSeen, firstSeen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE slot=VALUES(slot), type=VALUES(type), itemId=VALUES(itemId), icon=VALUES(icon), rarity=VALUES(rarity), level=VALUES(level)";
             $sql->execute($query, [$charName, $itemName, $itemId, $slot, $type, $icon, $child["rarity"], $child["level"], $lastModified, $lastModified]);
 
+            if (!isset($itemCounts["$itemName"])) {
+                $itemCounts["$itemName"] = 0;
+            }
+            $itemCounts["$itemName"]++;
 
-            $query = "UPDATE items SET enchant=?, lastSeen=GREATEST(lastSeen, ?), firstSeen=LEAST(firstSeen, ?) WHERE charName=? AND itemName=?";
-            $sql->execute($query, [$enchant, $lastModified, $lastModified, $charName, $itemName]);
+
+            $query = "UPDATE items SET enchant=?, count=GREATEST(count, ?), lastSeen=GREATEST(lastSeen, ?), firstSeen=LEAST(firstSeen, ?) WHERE charName=? AND itemName=?";
+            $sql->execute($query, [$enchant, $itemCounts["$itemName"], $lastModified, $lastModified, $charName, $itemName]);
         }
+
     }
 
 }
