@@ -23,6 +23,9 @@ class Armory extends Route
     {
         $sql = $ctx->createSQL();
 
+        $selectedNames = isset($_GET["names"]) ? $_GET["names"] : "";
+        $selectedNames = explode(",", $selectedNames);
+
         $groupNames = [];
         $types = $sql->raw("SELECT * FROM type_groups WHERE enabled = true")->fetchAll();
         foreach ($types as $type) {
@@ -36,21 +39,30 @@ class Armory extends Route
             $spec['checkedAttr'] = in_array($spec['specId'], $selectedSpecs) ? "checked" : "";
         }
         $selectedSpecs = implode("','", $selectedSpecs);
+        $implodedNames = implode("','", $selectedNames);
+
+        $searchChars = $sql->raw("
+          SELECT charName
+          FROM characters
+          JOIN classes ON classes.classId = characters.classId  
+          ORDER BY 
+            characters.charName ASC
+        ")->fetchAll();
 
         $chars = $sql->raw("
           SELECT charName, classColor, signAttendance, attendance
           FROM characters
           JOIN classes ON classes.classId = characters.classId  
-          WHERE COALESCE(specId, 'nospec') IN ('$selectedSpecs') 
+          WHERE (COALESCE(specId, 'nospec') IN ('$selectedSpecs')
             AND rank < 8 
             AND characters.rank IS NOT NULL 
-            AND characters.level >= 58
+            AND characters.level >= 58) OR charName IN ('$implodedNames')
           ORDER BY 
+            characters.attendance DESC,
             characters.rank, 
             characters.highestPvpRank DESC, 
             characters.charName ASC
         ")->fetchAll();
-
         $charNames = array_map(function($char) { return $char['charName']; }, $chars);
         $implodedCharNames = implode("','", $charNames);
 
@@ -60,8 +72,6 @@ class Armory extends Route
             ["name" => "Onyxia", "icon" => "inv_misc_head_dragon_01.jpg"],
             ["name" => "Non-raid", "icon" => "inv_misc_questionmark.jpg"]
         ];
-
-
         $selectedLocations = isset($_GET["locations"]) ? $_GET["locations"] : [];
         foreach ($locations as &$location) {
             $location['checkedAttr'] = in_array($location['name'], $selectedLocations) ? "checked" : "";
@@ -70,9 +80,7 @@ class Armory extends Route
         $selectedLocations = implode("','", $selectedLocations);
 
         //AND (spec_best_in_slot.sbisId IS NOT NULL OR
-
-        // Get filtered items.
-        $items = $sql->raw("
+        $query = "
           SELECT 
           items.charName, 
           items.itemName, 
@@ -97,7 +105,8 @@ class Armory extends Route
             items.level DESC, 
             items.rarity DESC, 
             items.itemName ASC;
-        ")->fetchAll();
+        ";
+        $items = $sql->raw($query)->fetchAll();
 
         $data = [
             "title" => "Boom Time",
@@ -105,6 +114,8 @@ class Armory extends Route
             "types" => $types,
             "groupNames" => $groupNames,
             "specs" => $specs,
+            "selectedNames" => $selectedNames,
+            "searchChars" => $searchChars,
             "locations" => $locations,
             "getItemsCount" => function(string $charName) use ($items) {
                 return count(array_filter($items, function(array $item) use ($charName) {
