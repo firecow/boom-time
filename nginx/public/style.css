@@ -12,6 +12,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-size: var(--smallsize);
+    overflow: auto;
     font-family: Roboto, sans-serif;
 }
 
