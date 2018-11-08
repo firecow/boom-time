@@ -52,7 +52,7 @@ class Armory extends Route
         ")->fetchAll();
 
         $chars = $sql->raw("
-          SELECT charName, classColor, signAttendance, attendance
+          SELECT charName, classColor, signAttendance, attendance, officerNote
           FROM characters
           JOIN classes ON classes.classId = characters.classId  
           WHERE (COALESCE(specId, 'nospec') IN ('$selectedSpecs')

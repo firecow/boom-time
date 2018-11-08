@@ -74,13 +74,13 @@
     <tr>
         <th></th>
         <? foreach ($d("chars") as $char): ?>
-        <th>
+        <th valign="top">
             <div class="text-ellipsis" style="display: inline-block; width: 140px;">
                 <span style="color:<?= $char['classColor']; ?>;"><?= $char['charName']; ?></span>
                 <span>(<?= $d("getItemsCount")($char['charName']) ?>)</span>
             </div>
             <div>
-                <?= $char['signAttendance']; ?>% <?= $char['attendance']; ?>%
+
             </div>
             <div style="display: inline-block">
             <!--<form method="post" id="specForm" onchange="submitSpec(event);">
@@ -95,13 +95,32 @@
         </th>
         <? endforeach; ?>
     </tr>
+    <tr>
+        <th class="padding">Sign Attendance</th>
+        <? foreach ($d("chars") as $char): ?>
+        <th class="padding" style="font-size: 9px; width:140px;"><?= $char['signAttendance']; ?>%</th>
+        <? endforeach; ?>
+    </tr>
+    <tr>
+        <th class="padding">Raid Attendance</th>
+        <? foreach ($d("chars") as $char): ?>
+            <th class="padding" style="font-size: 9px; width:140px;"><?= $char['attendance']; ?>%</th>
+        <? endforeach; ?>
+    </tr>
+    <tr>
+        <th class="padding">Note</th>
+        <? foreach ($d("chars") as $char): ?>
+        <th class="padding" style="text-align:left; font-size: 9px;color: #A0A0A0; width:140px;"><?= $char['officerNote'] ?></th>
+        <? endforeach; ?>
+    </tr>
+
     <? foreach ($d("types") as $type): ?>
     <tr>
-        <th><div class="padding"><?= $d("groupNames")[$type['group']] ?></div></th>
+        <th class="padding"><?= $d("groupNames")[$type['group']] ?></th>
         <? foreach ($d("chars") as $chars): ?>
 
 
-        <td valign="middle">
+        <td valign="top">
             <? foreach ($d("getItems")($chars['charName'], $type['group']) as $item): ?>
                 <? for($i = 0; $i < $item['count']; $i++): ?>
                     <div style="padding:1px; display: flex; align-items: center;">
