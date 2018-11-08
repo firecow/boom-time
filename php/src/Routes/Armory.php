@@ -26,6 +26,8 @@ class Armory extends Route
         $selectedNames = isset($_GET["names"]) ? $_GET["names"] : "";
         $selectedNames = explode(",", $selectedNames);
 
+        $lastSeenDays = isset($_GET["lastSeenDays"]) ? (int)$_GET["lastSeenDays"] : 15;
+
         $groupNames = [];
         $types = $sql->raw("SELECT * FROM type_groups WHERE enabled = true")->fetchAll();
         foreach ($types as $type) {
@@ -76,15 +78,15 @@ class Armory extends Route
         foreach ($locations as &$location) {
             $location['checkedAttr'] = in_array($location['name'], $selectedLocations) ? "checked" : "";
         }
-        $showBestInSlot = in_array('preraid-bis', $selectedLocations);
         $selectedLocations = implode("','", $selectedLocations);
 
-        //AND (spec_best_in_slot.sbisId IS NOT NULL OR
+        $dateClause = $sql->quote(date("Y-m-d H:i:s", time() - $lastSeenDays * 60 * 60 * 24));
         $query = "
           SELECT 
           items.charName, 
           items.itemName, 
           items.enchant as enchant,
+          items.count,
           items.icon,
           enchants.enchantName as enchantName,
           type_groups.group,
@@ -94,13 +96,13 @@ class Armory extends Route
             JOIN types ON items.type = types.type 
             JOIN type_groups ON types.group = type_groups.group
             LEFT JOIN items_location ON items.itemId = items_location.itemId
-            LEFT JOIN spec_best_in_slot ON spec_best_in_slot.itemId = items.itemId
             LEFT JOIN disabled_items ON items.itemId = disabled_items.itemId
             LEFT JOIN enchants ON items.enchant = enchants.enchant
           WHERE items.charName IN ('$implodedCharNames') 
             AND COALESCE(items_location.location, 'Non-raid') IN ('$selectedLocations')
             AND items.level >= 52
             AND disabled_items.itemId IS NULL
+            AND items.lastSeen >= $dateClause
           ORDER BY
             items.level DESC, 
             items.rarity DESC, 
@@ -116,6 +118,7 @@ class Armory extends Route
             "specs" => $specs,
             "selectedNames" => $selectedNames,
             "searchChars" => $searchChars,
+            "lastSeenDays" => $lastSeenDays,
             "locations" => $locations,
             "getItemsCount" => function(string $charName) use ($items) {
                 return count(array_filter($items, function(array $item) use ($charName) {
