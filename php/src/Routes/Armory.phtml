@@ -108,6 +108,12 @@
         <? endforeach; ?>
     </tr>
     <tr>
+        <th class="padding">Raids Attended</th>
+        <? foreach ($d("chars") as $char): ?>
+            <th class="padding" style="font-size: 9px; width:140px;"><?= $char['raidsAttended']; ?></th>
+        <? endforeach; ?>
+    </tr>
+    <tr>
         <th class="padding">Note</th>
         <? foreach ($d("chars") as $char): ?>
         <th class="padding" style="text-align:left; font-size: 9px;color: #A0A0A0; width:140px;"><?= $char['officerNote'] ?></th>
@@ -125,7 +131,7 @@
                 <? for($i = 0; $i < $item['count']; $i++): ?>
                     <div style="padding:1px; display: flex; align-items: center;">
                         <img style="border-radius: 2px; border: 1px solid <?= $item['color'] ?>; margin-right:4px;" width="18" height="18" src="/icons/<?= $item["icon"] ?>.jpg">
-                        <div class="text-ellipsis" style="width: 100px;display: inline-block;"><?= $item["itemName"] ?></div>
+                        <div class="text-ellipsis" style="width: 100px;display: inline-block;font-size:10px;"><?= $item["itemName"] ?></div>
                         <? if ($item["enchant"] != null) :?>
                             <div class="text-ellipsis" style="width: 40px;display: inline-block; color: #31ff3c; font-size: 9px;"><?= $item["enchantName"] ?></div>
                         <? endif; ?>
