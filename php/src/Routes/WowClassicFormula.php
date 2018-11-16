@@ -32,6 +32,9 @@ class WowClassicFormula extends Route
             $slots[] = $row['slot'];
         }
         $slots = array_unique($slots);
+        usort($slots, function($a, $b) {
+            return $a > $b;
+        });
 
         $data =[
             "title" => "WowClassicFormula",
