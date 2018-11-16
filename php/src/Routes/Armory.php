@@ -27,6 +27,7 @@ class Armory extends Route
         $selectedNames = explode(",", $selectedNames);
 
         $lastSeenDays = isset($_GET["lastSeenDays"]) ? (int)$_GET["lastSeenDays"] : 15;
+        $daysOld = isset($_GET["daysOld"]) ? (int)$_GET["daysOld"] : 3000;
 
         $groupNames = [];
         $types = $sql->raw("SELECT * FROM type_groups WHERE enabled = true")->fetchAll();
@@ -52,7 +53,7 @@ class Armory extends Route
         ")->fetchAll();
 
         $chars = $sql->raw("
-          SELECT charName, classColor, signAttendance, attendance, raidsAttended, officerNote
+          SELECT charName, classColor, signAttendance, attendance, raidsAttended, raidsPossible, officerNote, note, rankName
           FROM characters
           JOIN classes ON classes.classId = characters.classId  
           WHERE (COALESCE(specId, 'nospec') IN ('$selectedSpecs')
@@ -80,6 +81,9 @@ class Armory extends Route
         }
         $selectedLocations = implode("','", $selectedLocations);
 
+        //(spellDmg + spellDmgFrost + intellect * 0.17 + spellCrit * 10 + spellHit * 13)
+
+        $daysOldDate = $sql->quote(date("Y-m-d H:i:s", time() - $daysOld * 60 * 60 * 24));
         $dateClause = $sql->quote(date("Y-m-d H:i:s", time() - $lastSeenDays * 60 * 60 * 24));
         $query = "
           SELECT 
@@ -103,6 +107,7 @@ class Armory extends Route
             AND items.level >= 52
             AND disabled_items.itemId IS NULL
             AND items.lastSeen >= $dateClause
+            AND items.firstSeen >= $daysOldDate
           ORDER BY
             items.level DESC, 
             items.rarity DESC, 
@@ -119,6 +124,7 @@ class Armory extends Route
             "selectedNames" => $selectedNames,
             "searchChars" => $searchChars,
             "lastSeenDays" => $lastSeenDays,
+            "daysOld" => $daysOld,
             "locations" => $locations,
             "getItemsCount" => function(string $charName) use ($items) {
                 return count(array_filter($items, function(array $item) use ($charName) {

@@ -48,7 +48,9 @@ class UploadCharacterProfilerLua extends Route
             foreach ($members as $member) {
                 $charName = $member["Name"];
                 $officerNote = $member["OfficerNote"];
-                $sql->execute("UPDATE characters SET officerNote = ? WHERE charName = ?", [$officerNote, $charName]);
+                $note = $member["Note"];
+                $rankName = $member["Rank"];
+                $sql->execute("UPDATE characters SET rankName = ?, officerNote = ?, note = ? WHERE charName = ?", [$rankName, $officerNote, $note, $charName]);
             }
         }
 

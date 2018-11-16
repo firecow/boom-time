@@ -66,7 +66,11 @@
     <? endforeach; ?>
     <div style="display:inline-block">
         <div style="font-size:9px; text-align: center;">Last Seen</div>
-        <input onclick="this.form.submit()" type="number" name="lastSeenDays" value="<?= $d("lastSeenDays"); ?>"/>
+        <input onchange="this.form.submit()" type="number" name="lastSeenDays" value="<?= $d("lastSeenDays"); ?>"/>
+    </div>
+    <div style="display:inline-block">
+        <div style="font-size:9px; text-align: center;">X days old</div>
+        <input onchange="this.form.submit()" type="number" name="daysOld" value="<?= $d("daysOld"); ?>"/>
     </div>
 </form>
 
@@ -74,16 +78,16 @@
     <tr>
         <th></th>
         <? foreach ($d("chars") as $char): ?>
-        <th valign="top">
-            <div class="text-ellipsis" style="display: inline-block; width: 140px;">
-                <span style="color:<?= $char['classColor']; ?>;"><?= $char['charName']; ?></span>
-                <span>(<?= $d("getItemsCount")($char['charName']) ?>)</span>
-            </div>
-            <div>
+            <th valign="top">
+                <div class="text-ellipsis" style="display: inline-block; width: 140px;">
+                    <span style="color:<?= $char['classColor']; ?>;"><?= $char['charName']; ?></span>
+                    <span>(<?= $d("getItemsCount")($char['charName']) ?>)</span>
+                </div>
+                <div>
 
-            </div>
-            <div style="display: inline-block">
-            <!--<form method="post" id="specForm" onchange="submitSpec(event);">
+                </div>
+                <div style="display: inline-block">
+                    <!--<form method="post" id="specForm" onchange="submitSpec(event);">
                 <select name="newSpecId">
                     <?/* foreach ($d("specs") as $spec): */?>
                         <option value="<?/*= $spec['specId'] */?>" <?/*= $spec['selectedAttr'] */?>><?/*= $spec['specName'] */?></option>
@@ -91,56 +95,68 @@
                 </select>
                 <input name="charName" value="<?/*= $charName; */?>" hidden/>
             </form>-->
-            </div>
-        </th>
+                </div>
+            </th>
         <? endforeach; ?>
     </tr>
     <tr>
-        <th class="padding">Sign Attendance</th>
+        <th class="padding">RankName</th>
         <? foreach ($d("chars") as $char): ?>
-        <th class="padding" style="font-size: 9px; width:140px;"><?= $char['signAttendance']; ?>%</th>
+            <th class="padding" style="font-size: 9px; width:140px;"><?= $char['rankName']; ?></th>
         <? endforeach; ?>
     </tr>
     <tr>
-        <th class="padding">Raid Attendance</th>
+        <th class="padding">Signup Att. (2 months)</th>
+        <? foreach ($d("chars") as $char): ?>
+            <th class="padding" style="font-size: 9px; width:140px;"><?= $char['signAttendance']; ?>%</th>
+        <? endforeach; ?>
+    </tr>
+    <tr>
+        <th class="padding">Raid Att. (2 months)</th>
         <? foreach ($d("chars") as $char): ?>
             <th class="padding" style="font-size: 9px; width:140px;"><?= $char['attendance']; ?>%</th>
         <? endforeach; ?>
     </tr>
     <tr>
-        <th class="padding">Raids Attended</th>
+        <th class="padding">Raids</th>
         <? foreach ($d("chars") as $char): ?>
-            <th class="padding" style="font-size: 9px; width:140px;"><?= $char['raidsAttended']; ?></th>
+            <th class="padding" style="font-size: 9px; width:140px;"><?= $char['raidsAttended']; ?> / <?= $char['raidsPossible']; ?></th>
         <? endforeach; ?>
     </tr>
     <tr>
         <th class="padding">Note</th>
         <? foreach ($d("chars") as $char): ?>
-        <th class="padding" style="text-align:left; font-size: 9px;color: #A0A0A0; width:140px;"><?= $char['officerNote'] ?></th>
+            <th class="padding" style="text-align:left; font-size: 9px;color: #A0A0A0; width:140px;"><?= $char['note'] ?></th>
+        <? endforeach; ?>
+    </tr>
+    <tr>
+        <th class="padding">Note</th>
+        <? foreach ($d("chars") as $char): ?>
+            <th class="padding" style="text-align:left; font-size: 9px;color: #A0A0A0; width:140px;"><?= $char['officerNote'] ?></th>
         <? endforeach; ?>
     </tr>
 
     <? foreach ($d("types") as $type): ?>
-    <tr>
-        <th class="padding"><?= $d("groupNames")[$type['group']] ?></th>
-        <? foreach ($d("chars") as $chars): ?>
+        <tr>
+            <th class="padding"><?= $d("groupNames")[$type['group']] ?></th>
+            <? foreach ($d("chars") as $chars): ?>
 
 
-        <td valign="top">
-            <? foreach ($d("getItems")($chars['charName'], $type['group']) as $item): ?>
-                <? for($i = 0; $i < $item['count']; $i++): ?>
-                    <div style="padding:1px; display: flex; align-items: center;">
-                        <img style="border-radius: 2px; border: 1px solid <?= $item['color'] ?>; margin-right:4px;" width="18" height="18" src="/icons/<?= $item["icon"] ?>.jpg">
-                        <div class="text-ellipsis" style="width: 100px;display: inline-block;font-size:10px;"><?= $item["itemName"] ?></div>
-                        <? if ($item["enchant"] != null) :?>
-                            <div class="text-ellipsis" style="width: 40px;display: inline-block; color: #31ff3c; font-size: 9px;"><?= $item["enchantName"] ?></div>
-                        <? endif; ?>
-                    </div>
-                <? endfor;?>
+                <td valign="top">
+                    <? foreach ($d("getItems")($chars['charName'], $type['group']) as $item): ?>
+                        <? for($i = 0; $i < $item['count']; $i++): ?>
+                            <div style="padding:1px; display: flex; align-items: center;">
+                                <img style="border-radius: 2px; border: 1px solid <?= $item['color'] ?>; margin-right:4px;" width="18" height="18" src="/icons/<?= $item["icon"] ?>.jpg">
+                                <div class="text-ellipsis" style="width: 100px;display: inline-block;font-size:10px;"><?= $item["itemName"] ?></div>
+                                <? if ($item["enchant"] != null) :?>
+                                    <div class="text-ellipsis" style="width: 40px;display: inline-block; color: #31ff3c; font-size: 9px;"><?= $item["enchantName"] ?></div>
+                                <? endif; ?>
+                            </div>
+                        <? endfor;?>
+                    <? endforeach; ?>
+                </td>
             <? endforeach; ?>
-        </td>
-        <? endforeach; ?>
-    </tr>
+        </tr>
     <? endforeach ?>
 </table>
 

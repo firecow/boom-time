@@ -66,6 +66,10 @@ button:hover {
     padding: var(--padding);
 }
 
+.maxWidth {
+    width: 100%;
+}
+
 table {
     border-spacing: 0;
     border-collapse: collapse;

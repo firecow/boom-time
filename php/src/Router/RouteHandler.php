@@ -12,6 +12,7 @@ use App\Routes\Armory;
 use App\Routes\ChangeSpec;
 use App\Routes\ShowCharacterProfiler;
 use App\Routes\UploadCharacterProfilerLua;
+use App\Routes\WowClassicFormula;
 use Throwable;
 
 class RouteHandler
@@ -39,6 +40,10 @@ class RouteHandler
         });
         $this->addRouteFunction("/changespec/", function() use ($ctx) {
             $route = new ChangeSpec();
+            return $route->executeRoute($ctx, []);
+        });
+        $this->addRouteFunction("/wowclassicformula/", function() use ($ctx) {
+            $route = new WowClassicFormula();
             return $route->executeRoute($ctx, []);
         });
 

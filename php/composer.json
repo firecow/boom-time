@@ -8,7 +8,10 @@
     "ext-PDO": "*",
     "ext-curl": "*",
     "ext-simplexml": "*",
-    "ext-fileinfo": "*"
+    "ext-fileinfo": "*",
+    "ext-dom": "*",
+    "ext-libxml": "*",
+    "ext-pcntl": "*"
   },
   "require-dev": {
 
