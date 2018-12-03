@@ -104,7 +104,7 @@ class Armory extends Route
             LEFT JOIN enchants ON items.enchant = enchants.enchant
           WHERE items.charName IN ('$implodedCharNames') 
             AND COALESCE(items_location.location, 'Non-raid') IN ('$selectedLocations')
-            AND items.level >= 52
+            AND items.level >= 45
             AND disabled_items.itemId IS NULL
             AND items.lastSeen >= $dateClause
             AND items.firstSeen >= $daysOldDate

@@ -88,3 +88,23 @@ tr:nth-child(even) td {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.uncommon {
+    color: #1eff00;
+}
+
+.common {
+    color: #ffffff;
+}
+
+.rare {
+    color: #0070dd;
+}
+
+.epic {
+    color: #a335ee;
+}
+
+.legendary {
+    color: #ff8000;
+}

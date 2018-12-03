@@ -106,9 +106,9 @@
         <? endforeach; ?>
     </tr>
     <tr>
-        <th class="padding">Signup Att. (2 months)</th>
+        <th class="padding">Raids</th>
         <? foreach ($d("chars") as $char): ?>
-            <th class="padding" style="font-size: 9px; width:140px;"><?= $char['signAttendance']; ?>%</th>
+            <th class="padding" style="font-size: 9px; width:140px;"><?= $char['raidsAttended']; ?> / <?= $char['raidsPossible']; ?></th>
         <? endforeach; ?>
     </tr>
     <tr>
@@ -118,9 +118,9 @@
         <? endforeach; ?>
     </tr>
     <tr>
-        <th class="padding">Raids</th>
+        <th class="padding">Signup Att. (2 months)</th>
         <? foreach ($d("chars") as $char): ?>
-            <th class="padding" style="font-size: 9px; width:140px;"><?= $char['raidsAttended']; ?> / <?= $char['raidsPossible']; ?></th>
+            <th class="padding" style="font-size: 9px; width:140px;"><?= $char['signAttendance']; ?>%</th>
         <? endforeach; ?>
     </tr>
     <tr>
@@ -130,7 +130,7 @@
         <? endforeach; ?>
     </tr>
     <tr>
-        <th class="padding">Note</th>
+        <th class="padding">Off. Note</th>
         <? foreach ($d("chars") as $char): ?>
             <th class="padding" style="text-align:left; font-size: 9px;color: #A0A0A0; width:140px;"><?= $char['officerNote'] ?></th>
         <? endforeach; ?>

@@ -11,13 +11,11 @@ require 'error_cli.php';
 $config = new Config();
 $sql = new SQL($config->getPDODataSourceName(), $config->getPDOUsername(), $config->getPDOPassword());
 
-// TODO: Fishing, Mining, BOP/BOE, Quest/Drop/PVP, Item Level, Required Level
 // TODO: Class specific items. "Classes: Priest, Mage, Warlock"
-// TODO: Bug Red Dragonscale Breastplate
-// TODO: Set Items interfere easily
-// TODO: Benediction
+// TODO: Fishing, Mining, BOP/BOE
 // TODO: Buttons to filter items for specific patches.
 // TODO: Beastslayer
+// TODO: Quest/Drop/PVP
 
 libxml_use_internal_errors(true);
 
@@ -28,7 +26,7 @@ $itemsFromRaids = $sql->raw("SELECT * FROM items_location GROUP BY itemId ORDER 
 
 $items = array_merge($items, $itemsFromRaids);
 
-$items = [["itemId" => 21563, "itemName" => "Don Rodrigo's Band"]];
+//$items = [["itemId" => 21563, "itemName" => "Don Rodrigo's Band"]];
 
 foreach ($items as $item) {
     $itemId = $item['itemId'];
@@ -43,7 +41,7 @@ foreach ($items as $item) {
             sleep(10);
             $contents = file_get_contents($url) . "\n";
         } catch (Exception $ex) {
-            echo "HTTP Request exception $itemId\n";
+            echo "HTTP Request exception $itemName ($itemId)\n";
             continue;
         }
     }
@@ -96,6 +94,9 @@ foreach ($items as $item) {
         ],
         "spellCrit" => [
             "regex" => "Improves your chance to get a critical strike with spells by ([\d|\.]*)%"
+        ],
+        "spellCritHoly" => [
+            "regex" => "Increases the critical effect chance of your Holy spells by ([\d|\.]*)%"
         ],
         "spellHit" => [
             "regex" => "Improves your chance to hit with spells by ([\d|\.]*)%"
@@ -155,37 +156,50 @@ foreach ($items as $item) {
     ];
 
     if ($element == null) {
-        echo "No dom element found $itemId\n";
+        echo "No dom element found $itemName ($itemId)\n";
         continue;
     }
 
 
-    $contentsWithoutSet = $element->textContent;
+    // Remove Set:
+    $strippedContents = $element->textContent;
+    $strippedContents = preg_replace("/Set: [\s\S]*/", "", $strippedContents);
 
-    $pos = strpos($contentsWithoutSet, "Set:");
-    $contentsWithoutSet = substr($contentsWithoutSet, 0, $pos === false ? -1 : $pos);
+    // Remove Use:
+    $strippedContents = preg_replace("/Use: [\s\S]*/", "", $strippedContents);
 
-    $pos = strpos($contentsWithoutSet, "Use:");
-    $contentsWithoutSet = substr($contentsWithoutSet, 0, $pos === false ? -1 : $pos);
+    // Remove Equip
+    $strippedContents = preg_replace("/Equip: [\s\S]*/", "", $strippedContents);
+
+    // Remove item set
+    $strippedContents = preg_replace("/\(\d\/\d\)[\s\S]*/", "", $strippedContents);
+
+    // Readd equip effects
+    if (preg_match_all("/Equip: .*?\./", $element->textContent, $matches)) {
+        foreach ($matches[0] as $match) {
+            $strippedContents .= $match;
+        }
+    }
 
     $itemSlot = null;
     foreach ($types as $type) {
         $typeName = $type['typeName'];
 
-        if (preg_match("/.*$typeName.*/", $contentsWithoutSet)) {
+        if (preg_match("/.*$typeName.*/", $strippedContents)) {
             $itemSlot = $typeName;
         }
     }
 
     if ($itemSlot == null) {
-        echo "Skipping $itemId no matched typeslotname\n";
+        echo "Skipping $itemName ($itemId) no matched typeslotname\n";
         continue;
     }
 
+    // Match stats regex.
     foreach($itemStat as $key => $value) {
         $regEx = $itemStat[$key]['regex'];
         $itemStat[$key] = 0;
-        if (preg_match_all("/$regEx/m", $contentsWithoutSet, $matches)) {
+        if (preg_match_all("/$regEx/m", $strippedContents, $matches)) {
             foreach ($matches[1] as $match) {
                 $floatValue = floatval($match);
                 $itemStat[$key] += $floatValue;
@@ -197,15 +211,38 @@ foreach ($items as $item) {
 
     foreach ($armorTypes as $armorType) {
         $armorTypeName = $armorType['armorTypeName'];
-        if (preg_match("/.*$armorTypeName.*/", $contentsWithoutSet)) {
+        if (preg_match("/.*$armorTypeName.*/", $strippedContents)) {
             $itemStat['type'] = $armorTypeName;
         }
     }
 
     $itemStat['itemId'] = $itemId;
     $itemStat['itemName'] = $itemName;
+    $itemStat['uniqueItem'] = preg_match('/Unique/', $strippedContents) ? 1 : 0;
 
-    $itemStat['uniqueItem'] = preg_match('/Unique/', $contentsWithoutSet) ? 1 : 0;
+    // Parse item level.
+    if (preg_match('/Level: (\d*)/', $contents, $matches)) {
+        $itemStat['itemLevel'] = $matches[1];
+    }
+
+    // Parse required level.
+    if (preg_match('/Requires Level (\d*)/', $contents, $matches)) {
+        $itemStat['requiresLevel'] = $matches[1];
+    }
+
+    // Do something with the classes
+    if (preg_match("/Classes: (.*?)Requires/", $strippedContents, $matches)) {
+        foreach(explode(",", $matches[1]) as $className) {
+            try {
+                $query = "INSERT INTO item_stats_classes (itemId, className) VALUES (?, ?) ON DUPLICATE KEY UPDATE itemId=VALUES(itemId), className=VALUES(className)";
+                $sql->execute($query, [$itemId, trim($className)]);
+            } catch (Throwable $ex) {
+                echo "$itemId $itemName";
+                echo "$ex";
+            }
+
+        }
+    }
 
     $keys = implode(",", array_keys($itemStat));
     $keysColon = implode(",:", array_keys($itemStat));
