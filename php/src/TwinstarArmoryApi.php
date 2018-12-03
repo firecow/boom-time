@@ -37,7 +37,16 @@ class TwinstarArmoryApi {
         $lastModified = date("Y-m-d H:i:s", strtotime($xml->{"characterInfo"}->{"character"}["lastModified"]));
         $rankHighest = $xml->{"characterInfo"}->{"character"}->{"honorRanking"}["rankHighest"];
 
-        $query = "INSERT INTO characters (charName, level, classId, raceId, genderId, lastModified, highestPvpRank) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE level=VALUES(level), classId=VALUES(classId), raceId=VALUES(raceId), genderId=VALUES(genderId), lastModified=GREATEST(VALUES(lastModified), lastModified), highestPvpRank=GREATEST(VALUES(highestPvpRank), highestPvpRank)";
+        $query = "INSERT INTO characters (charName, level, classId, raceId, genderId, lastModified, highestPvpRank) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY 
+                    UPDATE  
+                      level=VALUES(level),
+                      classId=VALUES(classId),
+                      raceId=VALUES(raceId),
+                      genderId=VALUES(genderId),
+                      lastModified=GREATEST(VALUES(lastModified), lastModified),
+                      highestPvpRank=GREATEST(VALUES(highestPvpRank), highestPvpRank)
+                  ";
         $sql->execute($query, [$charName, $level, $classId, $raceId, $genderId, $lastModified, $rankHighest]);
 
         /**
