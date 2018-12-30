@@ -148,9 +148,7 @@
                             <div style="padding:1px; display: flex; align-items: center;">
                                 <img style="border-radius: 2px; border: 1px solid <?= $item['color'] ?>; margin-right:4px;" width="18" height="18" src="/icons/<?= $item["icon"] ?>.jpg">
                                 <div class="text-ellipsis" style="width: 100px;display: inline-block;font-size:10px;"><?= $item["itemName"] ?></div>
-                                <? if ($item["enchant"] != null) :?>
-                                    <div class="text-ellipsis" style="width: 40px;display: inline-block; color: #31ff3c; font-size: 9px;"><?= $item["enchantName"] ?></div>
-                                <? endif; ?>
+                                <div class="text-ellipsis" style="width: 40px;display: inline-block; color: #31ff3c; font-size: 9px;"><?= empty($item["enchantName"]) ? $item["enchant"] : $item["enchantName"] ?></div>
                             </div>
                         <? endfor;?>
                     <? endforeach; ?>
