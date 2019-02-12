@@ -38,6 +38,11 @@ foreach ($statement as $key => $row) {
     }
     $responseText = $response->getResponseText();
 
+    if (preg_match_all("/nosearchresult/m", $responseText)) {
+        echo "'$charName' banned or doesn't exist\n";
+        continue;
+    }
+
     try {
         TwinstarArmoryApi::InitCharacterByXML(simplexml_load_string($responseText), $sql);
     } catch (Throwable $ex) {
