@@ -13,7 +13,7 @@ class Config
      */
     public function __construct()
     {
-        $pdoPassword = getenv('SQL_ROOT_PASSWORD');
+        $pdoPassword = "ikeasucks";
 
         $this->configData = [
             "jwt" => [

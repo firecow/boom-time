@@ -66,7 +66,6 @@ class TwinstarArmoryApi {
             }
             $itemCounts["$itemName"]++;
 
-            IconHandler::initIcon($icon);
             $query = "
               INSERT INTO items (charName, itemName, itemId, slot, type, icon, rarity, level, count, enchant, lastSeen, firstSeen) 
               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 

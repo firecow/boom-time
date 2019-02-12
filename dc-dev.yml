@@ -6,7 +6,7 @@ services:
   php:
     build: php
     environment:
-      SQL_ROOT_PASSWORD: ${SQL_ROOT_PASSWORD}
+      SQL_ROOT_PASSWORD: ikeasucks
     working_dir: /php
     volumes:
     - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
@@ -29,16 +29,16 @@ services:
     volumes:
     - /data/sql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${SQL_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ikeasucks
       MYSQL_DATABASE: boom-time
     ports:
     - 3316:3306
 
   php-dev-cli:
-    container_name: php-dev-cli
+    container_name: boom-time-php-dev-cli
     build: php-dev-cli
     environment:
-      SQL_ROOT_PASSWORD: ${SQL_ROOT_PASSWORD}
+      SQL_ROOT_PASSWORD: ikeasucks
     working_dir: /php
     volumes:
     - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
@@ -46,3 +46,17 @@ services:
     - ./data:/data
     - ./php-dev-cli:/shell
     - ./dumps:/dumps
+
+  crawl-item-stats:
+    container_name: boom-time-crawl-item-stats
+    build: php-dev-cli
+    command: php crawl_item_stats_test.php
+    environment:
+      SQL_ROOT_PASSWORD: ikeasucks
+    working_dir: /php
+    volumes:
+      - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./php:/php
+      - ./data:/data
+      - ./php-dev-cli:/shell
+      - ./dumps:/dumps

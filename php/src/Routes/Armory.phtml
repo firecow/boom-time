@@ -52,7 +52,7 @@
         <?php $explodedName = explode(" ", $spec['specName']); ?>
         <div style="font-size:9px; text-align: center;"><?= $explodedName[0] ?></div>
         <input onclick="this.form.submit()" style="position:absolute; margin-left:20px; margin-top: 20px;" type="checkbox" name="specs[]" value="<?= $spec['specId']; ?>" <?= $spec['checkedAttr'] ?>/>
-        <img alt="<?= $spec['specName'] ?>" style="border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.7)" width="32" height="32" src="/icons/<?= $spec["icon"] ?>">
+        <img alt="<?= $spec['specName'] ?>" style="border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.7)" width="32" height="32" src="//wow.zamimg.com/images/wow/icons/large/<?= $spec["icon"] ?>">
         <div style="font-size:9px; text-align: center;"><?= $explodedName[1] ?? ""?></div>
     </div>
     <? endforeach; ?>
@@ -61,7 +61,7 @@
     <div style="display:inline-block; vertical-align: top;">
         <div style="font-size:9px; text-align: center;"><?= $location['name']; ?></div>
         <input onclick="this.form.submit()" style="position:absolute; margin-left:20px; margin-top: 20px;" type="checkbox" name="locations[]" value="<?= $location['name']; ?>" <?= $location['checkedAttr'] ?>/>
-        <img style="border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.7)" width="32" height="32" src="/icons/<?= $location["icon"] ?>">
+        <img style="border-radius: 2px; border: 1px solid rgba(255, 255, 255, 0.7)" width="32" height="32" src="//wow.zamimg.com/images/wow/icons/large/<?= $location["icon"] ?>">
     </div>
     <? endforeach; ?>
     <div style="display:inline-block">
@@ -146,7 +146,7 @@
                     <? foreach ($d("getItems")($chars['charName'], $type['group']) as $item): ?>
                         <? for($i = 0; $i < $item['count']; $i++): ?>
                             <div style="padding:1px; display: flex; align-items: center;">
-                                <img style="border-radius: 2px; border: 1px solid <?= $item['color'] ?>; margin-right:4px;" width="18" height="18" src="/icons/<?= $item["icon"] ?>.jpg">
+                                <img style="border-radius: 2px; border: 1px solid <?= $item['color'] ?>; margin-right:4px;" width="18" height="18" src="//wow.zamimg.com/images/wow/icons/large/<?= $item["icon"] ?>.jpg">
                                 <div class="text-ellipsis" style="width: 100px;display: inline-block;font-size:10px;"><?= $item["itemName"] ?></div>
                                 <div class="text-ellipsis" style="width: 40px;display: inline-block; color: #31ff3c; font-size: 9px;"><?= empty($item["enchantName"]) ? $item["enchant"] : $item["enchantName"] ?></div>
                             </div>
