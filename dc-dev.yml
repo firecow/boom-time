@@ -47,10 +47,11 @@ services:
     - ./php-dev-cli:/shell
     - ./dumps:/dumps
 
-  crawl-item-stats:
-    container_name: boom-time-crawl-item-stats
+  update-armory-data:
+    container_name: boom-time-update-armory-data
     build: php-dev-cli
-    command: php crawl_item_stats_test.php
+    command: php update_armory_data.php
+    restart: always
     environment:
       SQL_ROOT_PASSWORD: ikeasucks
     working_dir: /php

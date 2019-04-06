@@ -70,9 +70,12 @@ class Armory extends Route
         $implodedCharNames = implode("','", $charNames);
 
         $locations = [
-            ["name" => "BWL", "icon" => "inv_misc_head_dragon_black.jpg"],
+            ["name" => "AQ40", "icon" => "achievement_boss_cthun.jpg"],
+            ["name" => "AQ20", "icon" => "achievement_boss_ossiriantheunscarred.jpg"],
+            ["name" => "BWL", "icon" => "achievement_dungeon_blackwingdescent_raid_nefarian.jpg"],
+            ["name" => "ZG", "icon" => "achievement_boss_hakkar.jpg"],
             ["name" => "MC", "icon" => "achievement_boss_ragnaros.jpg"],
-            ["name" => "Onyxia", "icon" => "inv_misc_head_dragon_01.jpg"],
+            ["name" => "Onyxia", "icon" => "achievement_boss_onyxia.jpg"],
             ["name" => "Non-raid", "icon" => "inv_misc_questionmark.jpg"]
         ];
         $selectedLocations = isset($_GET["locations"]) ? $_GET["locations"] : [];

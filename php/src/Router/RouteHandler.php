@@ -42,11 +42,10 @@ class RouteHandler
             $route = new ChangeSpec();
             return $route->executeRoute($ctx, []);
         });
-        $this->addRouteFunction("/wowclassicformula/", function() use ($ctx) {
-            $route = new WowClassicFormula();
-            return $route->executeRoute($ctx, []);
-        });
-
+//        $this->addRouteFunction("/rest/charitems/", function($endOfRoute) use ($ctx) {
+//            $route = new Armory();
+//            return $route->executeRoute($ctx);
+//        });
     }
 
     private function addRouteFunction(string $uri, $func) {
